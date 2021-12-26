@@ -5,6 +5,8 @@ import by.overone.clinic.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,10 +18,11 @@ public class UserDaoImpl implements UserDao {
 
     private final static String GET_ALL_USERS_SQL = "SELECT * FROM user where status != 'deleted'";
     private final static String GET_USER_BY_ID_SQL = "SELECT * FROM user WHERE id=?";
-    private final static String GET_USER_BY_NAME_SURNAME = "SELECT * FROM user " +
-            "JOIN details on user_id=id";
+    private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM user JOIN details on user_id=id";
+    private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO details (user_id) VALUES (?)";
 
     private final JdbcTemplate jdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
 
 
     @Override
@@ -41,24 +44,30 @@ public class UserDaoImpl implements UserDao {
             param += " where name = ?";
             if (surname != null) {
                 param += " AND surname = ?";
-                return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME + param, new Object[]{name, surname},
+                return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{name, surname},
                         new BeanPropertyRowMapper<>(User.class));
             }
-            return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME + param, new Object[]{name},
+            return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{name},
                     new BeanPropertyRowMapper<>(User.class));
         }
         if (surname != null) {
             param += " where surname = ?";
-            return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME + param, new Object[]{surname},
+            return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{surname},
                     new BeanPropertyRowMapper<>(User.class));
         }
-        return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME + param, new Object[]{},
+        return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{},
                 new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
     public User addUser(User user) {
-        return null;
+        user.setRole("USER");
+        user.setStatus("VERIFY");
+
+        simpleJdbcInsert.withTableName("user").usingGeneratedKeyColumns("id");
+        Number id = simpleJdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(user));
+        jdbcTemplate.update(ADD_ID_BY_DETAIL_SQL, id.longValue());
+        return user;
     }
 
     @Override

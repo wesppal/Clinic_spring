@@ -2,6 +2,7 @@ package by.overone.clinic.service.impl;
 
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.UserDTO;
+import by.overone.clinic.dto.UserRegistrationDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,15 @@ public class UserServiceImpl implements UserService {
         List<UserDTO> users = userDao.getUserByNameSurname(name, surname).stream().map(u -> new UserDTO(u.getId(),
                 u.getLogin(), u.getEmail())).collect(Collectors.toList());
         return users;
+    }
+
+    @Override
+    public User addUser(UserRegistrationDTO userDTO) {
+        User user = new User();
+        user.setLogin(userDTO.getLogin());
+        user.setPassword(userDTO.getPassword());
+        user.setEmail(userDTO.getEmail());
+        user = userDao.addUser(user);
+        return user;
     }
 }
