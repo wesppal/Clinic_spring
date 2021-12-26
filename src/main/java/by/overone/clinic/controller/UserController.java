@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public UserDTO readUser(@RequestParam(value = "name", required = false) String name,
+    public List<UserDTO> readUser(@RequestParam(value = "name", required = false) String name,
                             @RequestParam(value = "surname", required = false) String surname) {
         return userService.getUserByFullName(name, surname);
     }

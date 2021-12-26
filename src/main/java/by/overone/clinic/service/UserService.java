@@ -7,5 +7,5 @@ import java.util.List;
 public interface UserService {
     List<UserDTO> getAllUsers();
     UserDTO getUserById(long id);
-    UserDTO getUserByFullName (String name, String surname);
+    List<UserDTO> getUserByFullName (String name, String surname);
 }

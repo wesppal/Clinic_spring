@@ -32,8 +32,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserByFullName(String name, String surname) {
-        User user = userDao.getUserByNameSurname(name, surname).orElseThrow(() -> new RuntimeException());
-        return modelMapper.map(user, UserDTO.class);
+    public List<UserDTO> getUserByFullName(String name, String surname) {
+        List<UserDTO> users = userDao.getUserByNameSurname(name, surname).stream().map(u -> new UserDTO(u.getId(),
+                u.getLogin(), u.getEmail())).collect(Collectors.toList());
+        return users;
     }
 }
