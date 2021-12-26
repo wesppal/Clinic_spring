@@ -3,10 +3,7 @@ package by.overone.clinic.controller;
 import by.overone.clinic.dto.UserDTO;
 import by.overone.clinic.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,8 +28,9 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/{name}+{surname}")
-    public UserDTO readUser(@PathVariable String name, @PathVariable String surname) {
+    @GetMapping("/search")
+    public UserDTO readUser(@RequestParam(value = "name", required = false) String name,
+                            @RequestParam(value = "surname", required = false) String surname) {
         return userService.getUserByFullName(name, surname);
     }
 }

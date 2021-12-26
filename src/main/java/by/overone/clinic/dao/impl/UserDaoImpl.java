@@ -16,8 +16,10 @@ public class UserDaoImpl implements UserDao {
 
     private final static String GET_ALL_USERS_SQL = "SELECT * FROM user where status != 'deleted'";
     private final static String GET_USER_BY_ID_SQL = "SELECT * FROM user WHERE id=?";
-    private final static String GET_USER_BY_FULLNAME = "SELECT * FROM user " +
-            "JOIN details on user_id=id where name=? AND surname=?";
+    private final static String GET_USER_BY_NAME_SURNAME = "SELECT * FROM user " +
+            "JOIN details on user_id=id";
+//    private final static String GET_USER_BY_NAME_SURNAME = "SELECT * FROM user " +
+//            "JOIN details on user_id=id where name=? AND surname=?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -35,8 +37,24 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> getUserByFullName(String name, String surname) {
-        return jdbcTemplate.query(GET_USER_BY_FULLNAME, new Object[]{name, surname},
+    public Optional<User> getUserByNameSurname(String name, String surname) {
+        String param = "";
+        if (name != null) {
+            param += " where name = ?";
+            if (surname != null) {
+                param += " AND surname = ?";
+                return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME + param, new Object[]{name, surname},
+                        new BeanPropertyRowMapper<>(User.class)).stream().findAny();
+            }
+            return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME + param, new Object[]{name},
+                    new BeanPropertyRowMapper<>(User.class)).stream().findAny();
+        }
+        if (surname != null) {
+            param += " where surname = ?";
+            return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME + param, new Object[]{surname},
+                    new BeanPropertyRowMapper<>(User.class)).stream().findAny();
+        }
+        return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME + param, new Object[]{},
                 new BeanPropertyRowMapper<>(User.class)).stream().findAny();
     }
 

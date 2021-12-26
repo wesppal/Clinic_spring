@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserByFullName(String name, String surname) {
-        User user = userDao.getUserByFullName(name, surname).orElseThrow(() -> new RuntimeException());
+        User user = userDao.getUserByNameSurname(name, surname).orElseThrow(() -> new RuntimeException());
         return modelMapper.map(user, UserDTO.class);
     }
 }
