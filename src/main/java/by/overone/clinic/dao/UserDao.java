@@ -12,5 +12,5 @@ public interface UserDao {
     List<User> getUserByNameSurname(String name, String surname);
     User addUser(User user);
     void removeUserById(long id);
-    boolean updateUserDetails(UserDetail userDetail);
+    void updateUserDetails(UserDetail userDetail);
 }

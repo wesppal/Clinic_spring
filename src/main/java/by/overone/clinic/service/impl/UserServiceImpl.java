@@ -4,6 +4,7 @@ import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.UserDTO;
 import by.overone.clinic.dto.UserRegistrationDTO;
 import by.overone.clinic.model.User;
+import by.overone.clinic.model.UserDetail;
 import by.overone.clinic.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -49,8 +50,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void removeUserById(long id) {
-        if (id > 0){
             userDao.removeUserById(id);
-        }
+    }
+
+    @Override
+    public void updateUserDetails(UserDetail userDetail) {
+        userDao.updateUserDetails(userDetail);
     }
 }

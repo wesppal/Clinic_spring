@@ -4,10 +4,12 @@ import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetail;
 import by.overone.clinic.util.UserConst;
+import by.overone.clinic.util.UserDetailConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +25,8 @@ public class UserDaoImpl implements UserDao {
     private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM user JOIN details on user_id=id";
     private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO details user_id VALUES ?";
     private final static String UPDATE_USER_STATUS_SQL = "UPDATE user SET status =? WHERE id=?";
+    private final static String UPDATE_USER_DETAILS_SQL = "UPDATE details SET name = ?, surname = ?, address = ?, " +
+            "phoneNumber = ? WHERE user_id = ?";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
@@ -79,7 +83,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updateUserDetails(UserDetail userDetail) {
-        return false;
+    public void updateUserDetails(UserDetail userDetail) {
+        jdbcTemplate.update(UPDATE_USER_DETAILS_SQL, userDetail.getName(), userDetail.getSurname(),
+                userDetail.getAddress(), userDetail.getPhoneNumber(), userDetail.getUser_id());
     }
 }
