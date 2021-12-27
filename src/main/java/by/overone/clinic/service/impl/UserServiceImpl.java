@@ -48,4 +48,11 @@ public class UserServiceImpl implements UserService {
         user = userDao.addUser(user);
         return user;
     }
+
+    @Override
+    public void removeUserById(long id) {
+        if (id > 0){
+            userDao.removeUserById(id);
+        }
+    }
 }

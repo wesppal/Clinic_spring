@@ -40,4 +40,10 @@ public class UserController {
     public User addUser(@RequestBody UserRegistrationDTO userRegistrationDTO){
         return userService.addUser(userRegistrationDTO);
     }
+
+    @GetMapping("/{id}/remove")
+    public void removeUser(@PathVariable long id){
+        userService.removeUserById(id);
+    }
+
 }

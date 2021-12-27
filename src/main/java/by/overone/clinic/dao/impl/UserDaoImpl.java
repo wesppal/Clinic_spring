@@ -2,6 +2,7 @@ package by.overone.clinic.dao.impl;
 
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.model.User;
+import by.overone.clinic.util.UserConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -65,7 +66,7 @@ public class UserDaoImpl implements UserDao {
         user.setRole("USER");
         user.setStatus("VERIFY");
 
-        simpleJdbcInsert.withTableName("user").usingGeneratedKeyColumns("id");
+        simpleJdbcInsert.withTableName("user").usingGeneratedKeyColumns(UserConst.ID);
         Number id = simpleJdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(user));
         jdbcTemplate.update(ADD_ID_BY_DETAIL_SQL, id.longValue());
         return user;
@@ -73,6 +74,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void removeUserById(long id) {
-
+        String status = "DELETED";
+        jdbcTemplate.update(UPDATE_USER_STATUS_SQL, status, id);
     }
 }

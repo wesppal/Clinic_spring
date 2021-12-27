@@ -11,4 +11,5 @@ public interface UserService {
     UserDTO getUserById(long id);
     List<UserDTO> getUserByFullName (String name, String surname);
     User addUser(UserRegistrationDTO user);
+    void removeUserById(long id);
 }
