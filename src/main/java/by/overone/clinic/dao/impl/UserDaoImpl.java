@@ -2,6 +2,7 @@ package by.overone.clinic.dao.impl;
 
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.model.User;
+import by.overone.clinic.model.UserDetail;
 import by.overone.clinic.util.UserConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -29,8 +30,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = jdbcTemplate.query(GET_ALL_USERS_SQL, new BeanPropertyRowMapper<>(User.class));
-        return users;
+        return jdbcTemplate.query(GET_ALL_USERS_SQL, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
@@ -76,5 +76,10 @@ public class UserDaoImpl implements UserDao {
     public void removeUserById(long id) {
         String status = "DELETED";
         jdbcTemplate.update(UPDATE_USER_STATUS_SQL, status, id);
+    }
+
+    @Override
+    public boolean updateUserDetails(UserDetail userDetail) {
+        return false;
     }
 }

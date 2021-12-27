@@ -1,6 +1,7 @@
 package by.overone.clinic.dao;
 
 import by.overone.clinic.model.User;
+import by.overone.clinic.model.UserDetail;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,4 +12,5 @@ public interface UserDao {
     List<User> getUserByNameSurname(String name, String surname);
     User addUser(User user);
     void removeUserById(long id);
+    boolean updateUserDetails(UserDetail userDetail);
 }
