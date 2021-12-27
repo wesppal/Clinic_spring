@@ -19,7 +19,8 @@ public class UserDaoImpl implements UserDao {
     private final static String GET_ALL_USERS_SQL = "SELECT * FROM user where status != 'deleted'";
     private final static String GET_USER_BY_ID_SQL = "SELECT * FROM user WHERE id=?";
     private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM user JOIN details on user_id=id";
-    private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO details (user_id) VALUES (?)";
+    private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO details user_id VALUES ?";
+    private final static String UPDATE_USER_STATUS_SQL = "UPDATE user SET status =? WHERE id=?";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
