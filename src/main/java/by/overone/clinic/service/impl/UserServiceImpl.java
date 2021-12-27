@@ -21,22 +21,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAllUsers() {
-        List<UserDTO> users = userDao.getAllUsers().stream().map(u -> new UserDTO(u.getId(), u.getLogin(),
+        return userDao.getAllUsers().stream().map(u -> new UserDTO(u.getId(), u.getLogin(),
                 u.getEmail())).collect(Collectors.toList());
-        return users;
     }
 
     @Override
     public UserDTO getUserById(long id) {
-        User user = userDao.getUserById(id).orElseThrow(() -> new RuntimeException());
+        User user = userDao.getUserById(id).orElseThrow(RuntimeException::new);
         return modelMapper.map(user, UserDTO.class);
     }
 
     @Override
     public List<UserDTO> getUserByFullName(String name, String surname) {
-        List<UserDTO> users = userDao.getUserByNameSurname(name, surname).stream().map(u -> new UserDTO(u.getId(),
+        return userDao.getUserByNameSurname(name, surname).stream().map(u -> new UserDTO(u.getId(),
                 u.getLogin(), u.getEmail())).collect(Collectors.toList());
-        return users;
     }
 
     @Override
