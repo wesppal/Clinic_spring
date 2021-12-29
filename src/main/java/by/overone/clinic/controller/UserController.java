@@ -21,11 +21,6 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/hello")
-    public String read() {
-        return "hello";
-    }
-
     @GetMapping("/{id}")
     public UserDTO readUser(@PathVariable long id) {
         return userService.getUserById(id);
