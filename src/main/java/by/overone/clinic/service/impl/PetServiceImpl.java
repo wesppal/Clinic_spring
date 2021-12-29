@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +26,8 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet getPetById(long id) {
-        return null;
+        Pet pet = petDao.getPetById(id).orElseThrow(RuntimeException::new);
+        return pet;
     }
 
     @Override

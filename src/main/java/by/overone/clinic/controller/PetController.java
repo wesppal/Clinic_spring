@@ -21,7 +21,7 @@ public class PetController {
     }
 
     @GetMapping("/{id}")
-    public Pet readPet(@PathVariable long id) {return null;}
+    public Pet readPet(@PathVariable long id) {return petService.getPetById(id);}
 
     @GetMapping("/user/{user_id}")
     public List<Pet> readPetsForUser(@RequestParam long user_id) {return null;}

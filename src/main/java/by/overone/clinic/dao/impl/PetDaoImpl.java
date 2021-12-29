@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 @Repository
 @RequiredArgsConstructor
@@ -17,7 +19,7 @@ public class PetDaoImpl implements PetDao {
     private final JdbcTemplate jdbcTemplate;
 
     private final static String GET_ALL_PETS_SQL = "SELECT * FROM pets where status = 'ACTIVE'";
-    private final static String GET_PET_BY_ID_SQL = "SELECT * FROM pets WHERE pet_id=(?)";
+    private final static String GET_PET_BY_ID_SQL = "SELECT * FROM pets WHERE pet_id=?";
     private final static String ADD_NEW_PET_SQL = "INSERT INTO pets VALUE (0,?,?,?,?,?,?)";
     private final static String UPDATE_PET_STATUS_SQL = "UPDATE pets SET status =(?) WHERE pet_id=(?)";
     private final static String UPDATE_PET_SQL = "UPDATE pets SET";
@@ -29,8 +31,9 @@ public class PetDaoImpl implements PetDao {
     }
 
     @Override
-    public Pet getPetById(long id) {
-        return null;
+    public Optional<Pet> getPetById(long id) {
+        return jdbcTemplate.query(GET_PET_BY_ID_SQL, new Object[]{id},
+                new BeanPropertyRowMapper<>(Pet.class)).stream().findAny();
     }
 
     @Override

@@ -1,9 +1,9 @@
 package by.overone.clinic.service;
 
-import by.overone.clinic.dto.pet.PetAddDTO;
 import by.overone.clinic.model.Pet;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PetService {
     List<Pet> getPets();
