@@ -1,5 +1,6 @@
 package by.overone.clinic.service;
 
+import by.overone.clinic.dto.pet.PetAddDTO;
 import by.overone.clinic.model.Pet;
 
 import java.util.List;

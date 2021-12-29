@@ -2,6 +2,7 @@ package by.overone.clinic.controller;
 
 import by.overone.clinic.model.Pet;
 import by.overone.clinic.model.User;
+import by.overone.clinic.service.PetService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +13,11 @@ import java.util.List;
 @RequestMapping("/api/pets")
 public class PetController {
 
+    private final PetService petService;
+
     @GetMapping
     public List<Pet> readAll() {
-        return null;
+        return petService.getPets();
     }
 
     @GetMapping("/{id}")
