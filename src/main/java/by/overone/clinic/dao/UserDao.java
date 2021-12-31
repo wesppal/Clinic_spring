@@ -1,5 +1,6 @@
 package by.overone.clinic.dao;
 
+import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetail;
 
@@ -13,4 +14,5 @@ public interface UserDao {
     User addUser(User user);
     void removeUserById(long id);
     void updateUserDetails(UserDetail userDetail);
+    Optional<UserInfoDTO> allInfoUser(long id);
 }

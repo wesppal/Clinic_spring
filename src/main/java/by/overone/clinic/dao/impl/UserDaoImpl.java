@@ -1,15 +1,14 @@
 package by.overone.clinic.dao.impl;
 
 import by.overone.clinic.dao.UserDao;
+import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetail;
 import by.overone.clinic.util.UserConst;
-import by.overone.clinic.util.UserDetailConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +26,9 @@ public class UserDaoImpl implements UserDao {
     private final static String UPDATE_USER_STATUS_SQL = "UPDATE user SET status =? WHERE id=?";
     private final static String UPDATE_USER_DETAILS_SQL = "UPDATE details SET name = ?, surname = ?, address = ?, " +
             "phoneNumber = ? WHERE user_id = ?";
+    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT id, login, email, details.name, " +
+            "details.surname, details.address, details.phoneNumber FROM user JOIN details on details.user_id=user.id " +
+            "WHERE id = ? AND status != 'deleted'";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
@@ -84,7 +86,36 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUserDetails(UserDetail userDetail) {
+        UserInfoDTO userTemp = allInfoUser(userDetail.getUser_id()).orElseThrow();
+
+        if (userTemp.getName() != null) {
+            if (userDetail.getName() == null) {
+                userDetail.setName(userTemp.getName());
+            }
+        }
+        if (userTemp.getSurname() != null) {
+            if (userDetail.getSurname() == null) {
+                userDetail.setSurname(userTemp.getSurname());
+            }
+        }
+        if (userTemp.getAddress() != null) {
+            if (userDetail.getAddress() == null) {
+                userDetail.setAddress(userTemp.getAddress());
+            }
+        }
+        if (userTemp.getPhoneNumber() != null) {
+            if (userDetail.getPhoneNumber() == null) {
+                userDetail.setPhoneNumber(userTemp.getPhoneNumber());
+            }
+        }
         jdbcTemplate.update(UPDATE_USER_DETAILS_SQL, userDetail.getName(), userDetail.getSurname(),
                 userDetail.getAddress(), userDetail.getPhoneNumber(), userDetail.getUser_id());
     }
+
+    @Override
+    public Optional<UserInfoDTO> allInfoUser(long id) {
+        return jdbcTemplate.query(GET_ALL_INFO_USER_BY_ID_SQL, new Object[]{id},
+                new BeanPropertyRowMapper<>(UserInfoDTO.class)).stream().findAny();
+    }
+
 }

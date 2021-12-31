@@ -2,6 +2,7 @@ package by.overone.clinic.service.impl;
 
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.UserDTO;
+import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.dto.UserRegistrationDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetail;
@@ -56,5 +57,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserDetails(UserDetail userDetail) {
         userDao.updateUserDetails(userDetail);
+    }
+
+    @Override
+    public UserInfoDTO allInfoUser(long id) {
+        return userDao.allInfoUser(id).orElseThrow(RuntimeException::new);
     }
 }

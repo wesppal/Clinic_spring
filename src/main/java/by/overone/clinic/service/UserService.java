@@ -1,6 +1,7 @@
 package by.overone.clinic.service;
 
 import by.overone.clinic.dto.UserDTO;
+import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.dto.UserRegistrationDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetail;
@@ -14,4 +15,5 @@ public interface UserService {
     User addUser(UserRegistrationDTO user);
     void removeUserById(long id);
     void updateUserDetails(UserDetail userDetail);
+    UserInfoDTO allInfoUser(long id);
 }
