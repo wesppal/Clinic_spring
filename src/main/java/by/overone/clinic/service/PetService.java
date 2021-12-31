@@ -10,7 +10,7 @@ public interface PetService {
 
     Pet getPetById(long id);
 
-    Pet addPet(long user_id, Pet pet);
+    Pet addPet(Pet pet);
 
     void updatePet(long id, Pet pet);
 

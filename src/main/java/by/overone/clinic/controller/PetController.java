@@ -1,7 +1,6 @@
 package by.overone.clinic.controller;
 
 import by.overone.clinic.model.Pet;
-import by.overone.clinic.model.User;
 import by.overone.clinic.service.PetService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,7 @@ public class PetController {
     public List<Pet> readPetsForUser(@RequestParam long user_id) {return null;}
 
     @PostMapping("/reg-pet")
-    public User addPet(@RequestBody Pet pet) {return null;}
+    public Pet addPet(@RequestBody Pet pet) {return petService.addPet(pet);}
 
     @GetMapping("/{id}/remove")
     public void removePet(@PathVariable long id) {

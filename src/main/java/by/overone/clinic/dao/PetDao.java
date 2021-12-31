@@ -10,7 +10,7 @@ public interface PetDao {
 
     Optional<Pet> getPetById(long id);
 
-    Pet addPet(long user_id, Pet pet);
+    Pet addPet(Pet pet);
 
     Pet updatePet(long id, Pet pet);
 

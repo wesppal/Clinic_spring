@@ -1,22 +1,25 @@
 package by.overone.clinic.dao.impl;
 
 import by.overone.clinic.dao.PetDao;
+import by.overone.clinic.dao.UserDao;
+import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.model.Pet;
-import by.overone.clinic.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 @Repository
 @RequiredArgsConstructor
 public class PetDaoImpl implements PetDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
+    private final UserDao userDao;
 
     private final static String GET_ALL_PETS_SQL = "SELECT * FROM pets where status = 'ACTIVE'";
     private final static String GET_PET_BY_ID_SQL = "SELECT * FROM pets WHERE pet_id=?";
@@ -37,8 +40,13 @@ public class PetDaoImpl implements PetDao {
     }
 
     @Override
-    public Pet addPet(long user_id, Pet pet) {
-        return null;
+    public Pet addPet(Pet pet) {
+        pet.setStatus("VERIFY");
+        UserInfoDTO user = userDao.allInfoUser(pet.getUser_id()).orElseThrow();
+        pet.setOwner(user.getName());
+        jdbcTemplate.update(ADD_NEW_PET_SQL, pet.getName(), pet.getAge(), pet.getType_of_pet(),
+                pet.getOwner(), pet.getUser_id(), pet.getStatus());
+        return pet;
     }
 
     @Override

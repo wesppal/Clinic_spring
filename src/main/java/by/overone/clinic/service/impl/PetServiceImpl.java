@@ -31,8 +31,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public Pet addPet(long user_id, Pet pet) {
-        return null;
+    public Pet addPet(Pet pet) {
+        return petDao.addPet(pet);
     }
 
     @Override
