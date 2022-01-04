@@ -48,6 +48,6 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<Pet> getPetByUserId(long user_id) {
-        return null;
+        return petDao.getPetByUserId(user_id);
     }
 }

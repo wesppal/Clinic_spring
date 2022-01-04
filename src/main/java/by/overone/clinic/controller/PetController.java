@@ -22,8 +22,10 @@ public class PetController {
     @GetMapping("/{id}")
     public Pet readPet(@PathVariable long id) {return petService.getPetById(id);}
 
-    @GetMapping("/user/{user_id}")
-    public List<Pet> readPetsForUser(@RequestParam long user_id) {return null;}
+    @GetMapping("/user{user_id}")
+    public List<Pet> readPetsForUser(@RequestParam long user_id) {
+        return petService.getPetByUserId(user_id);
+    }
 
     @PostMapping("/reg-pet")
     public Pet addPet(@RequestBody Pet pet) {return petService.addPet(pet);}

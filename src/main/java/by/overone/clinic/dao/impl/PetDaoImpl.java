@@ -25,7 +25,7 @@ public class PetDaoImpl implements PetDao {
     private final static String UPDATE_PET_STATUS_SQL = "UPDATE pets SET status =(?) WHERE pet_id=(?)";
     private final static String UPDATE_PET_SQL = "UPDATE pets SET name = ?, age = ?, type_of_pet = ?," +
             "owner = ?, user_id = ?, status = ? WHERE pet_id = ?";
-    private final static String GET_PETS_BY_USER_ID_SQL = "SELECT * FROM pets WHERE user_id=(?)";
+    private final static String GET_PETS_BY_USER_ID_SQL = "SELECT * FROM pets WHERE user_id = ?";
 
     @Override
     public List<Pet> getPets() {
@@ -94,6 +94,7 @@ public class PetDaoImpl implements PetDao {
 
     @Override
     public List<Pet> getPetByUserId(long user_id) {
-        return null;
+        return jdbcTemplate.query(GET_PETS_BY_USER_ID_SQL, new Object[]{user_id},
+                new BeanPropertyRowMapper<>(Pet.class));
     }
 }
