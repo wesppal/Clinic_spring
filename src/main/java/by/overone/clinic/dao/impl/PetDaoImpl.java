@@ -18,14 +18,14 @@ import java.util.Optional;
 public class PetDaoImpl implements PetDao {
 
     private final JdbcTemplate jdbcTemplate;
-    private final SimpleJdbcInsert simpleJdbcInsert;
     private final UserDao userDao;
 
     private final static String GET_ALL_PETS_SQL = "SELECT * FROM pets where status = 'ACTIVE'";
     private final static String GET_PET_BY_ID_SQL = "SELECT * FROM pets WHERE pet_id=?";
     private final static String ADD_NEW_PET_SQL = "INSERT INTO pets VALUE (0,?,?,?,?,?,?)";
     private final static String UPDATE_PET_STATUS_SQL = "UPDATE pets SET status =(?) WHERE pet_id=(?)";
-    private final static String UPDATE_PET_SQL = "UPDATE pets SET";
+    private final static String UPDATE_PET_SQL = "UPDATE pets SET name = ?, age = ?, type_of_pet = ?," +
+            "owner = ?, user_id = ?, status = ? WHERE pet_id = ?";
     private final static String GET_PETS_BY_USER_ID_SQL = "SELECT * FROM pets WHERE user_id=(?)";
 
     @Override
@@ -51,7 +51,35 @@ public class PetDaoImpl implements PetDao {
 
     @Override
     public Pet updatePet(long id, Pet pet) {
-        return null;
+        Pet petTemp = getPetById(id).orElseThrow(RuntimeException::new);
+        if (petTemp.getName() != null) {
+            if (pet.getName() == null) {
+                pet.setName(petTemp.getName());
+            }
+        }
+        if (petTemp.getAge() != 0) {
+            if (pet.getAge() == 0) {
+                pet.setAge(petTemp.getAge());
+            }
+        }
+        if (petTemp.getType_of_pet() != null) {
+            if (pet.getType_of_pet() == null) {
+                pet.setType_of_pet(petTemp.getType_of_pet());
+            }
+        }
+        if (petTemp.getOwner() != null) {
+            if (pet.getOwner() == null) {
+                pet.setOwner(petTemp.getOwner());
+            }
+        }
+        if (pet.getUser_id() == 0) {
+            pet.setUser_id(petTemp.getUser_id());
+        }
+        pet.setStatus(petTemp.getStatus());
+
+        jdbcTemplate.update(UPDATE_PET_SQL, pet.getName(), pet.getAge(),
+                pet.getType_of_pet(), pet.getOwner(), pet.getUser_id(), pet.getStatus(), id);
+        return pet;
     }
 
     @Override

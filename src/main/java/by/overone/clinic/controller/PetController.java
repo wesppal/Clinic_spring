@@ -32,8 +32,9 @@ public class PetController {
     public void removePet(@PathVariable long id) {
     }
 
-    @GetMapping("/pet-update")
-    public void updatePet(@RequestBody Pet Pet) {
+    @GetMapping("/{id}/update")
+    public void updatePet(@PathVariable long id, @RequestBody Pet pet) {
+        petService.updatePet(id, pet);
     }
 }
 
