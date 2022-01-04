@@ -14,6 +14,8 @@ public interface PetDao {
 
     Pet updatePet(long id, Pet pet);
 
+    void updateStatus(long id, String status);
+
     void deletePet(long id);
 
     List<Pet> getPetByUserId(long user_id);

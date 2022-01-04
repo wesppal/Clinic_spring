@@ -28,13 +28,14 @@ public class PetController {
     @PostMapping("/reg-pet")
     public Pet addPet(@RequestBody Pet pet) {return petService.addPet(pet);}
 
-    @GetMapping("/{id}/remove")
-    public void removePet(@PathVariable long id) {
-    }
-
     @GetMapping("/{id}/update")
     public void updatePet(@PathVariable long id, @RequestBody Pet pet) {
         petService.updatePet(id, pet);
+    }
+
+    @GetMapping("/{id}/remove")
+    public void removePet(@PathVariable long id) {
+        petService.deletePet(id);
     }
 }
 

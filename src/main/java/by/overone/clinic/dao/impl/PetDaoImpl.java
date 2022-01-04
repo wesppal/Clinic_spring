@@ -7,7 +7,6 @@ import by.overone.clinic.model.Pet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -83,8 +82,14 @@ public class PetDaoImpl implements PetDao {
     }
 
     @Override
-    public void deletePet(long id) {
+    public void updateStatus(long id, String status) {
+        jdbcTemplate.update(UPDATE_PET_STATUS_SQL, status, id);
+    }
 
+    @Override
+    public void deletePet(long id) {
+        String status = "DELETED";
+        updateStatus(id, status);
     }
 
     @Override

@@ -3,7 +3,6 @@ package by.overone.clinic.service;
 import by.overone.clinic.model.Pet;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PetService {
     List<Pet> getPets();
@@ -14,7 +13,9 @@ public interface PetService {
 
     void updatePet(long id, Pet pet);
 
-    boolean deletePet(long id);
+    void updateStatus(long id, String status);
+
+    void deletePet(long id);
 
     List<Pet> getPetByUserId(long user_id);
 }

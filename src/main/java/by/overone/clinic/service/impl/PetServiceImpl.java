@@ -1,16 +1,12 @@
 package by.overone.clinic.service.impl;
 
 import by.overone.clinic.dao.PetDao;
-import by.overone.clinic.dao.UserDao;
-import by.overone.clinic.dto.UserDTO;
-import by.overone.clinic.dto.pet.PetAddDTO;
 import by.overone.clinic.model.Pet;
 import by.overone.clinic.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,8 +37,13 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public boolean deletePet(long id) {
-        return false;
+    public void updateStatus(long id, String status) {
+        petDao.updateStatus(id, status);
+    }
+
+    @Override
+    public void deletePet(long id) {
+        petDao.deletePet(id);
     }
 
     @Override
