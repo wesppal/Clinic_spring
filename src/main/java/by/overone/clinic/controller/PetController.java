@@ -25,15 +25,15 @@ public class PetController {
         return petService.getPetById(id);
     }
 
-    @PostMapping("/reg-pet")
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public Pet addPet(@RequestBody Pet pet) {
         return petService.addPet(pet);
     }
 
-    @GetMapping("/{id}/update")
-    public void updatePet(@PathVariable long id, @RequestBody Pet pet) {
-        petService.updatePet(id, pet);
+    @GetMapping("/update")
+    public void updatePet( @RequestBody Pet pet) {
+        petService.updatePet(pet);
     }
 
     @GetMapping("/{id}/remove")

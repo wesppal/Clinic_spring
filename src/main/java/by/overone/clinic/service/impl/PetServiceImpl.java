@@ -32,8 +32,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public void updatePet(long id, Pet pet) {
-        petDao.updatePet(id, pet);
+    public void updatePet(Pet pet) {
+        petDao.updatePet(pet);
     }
 
     @Override

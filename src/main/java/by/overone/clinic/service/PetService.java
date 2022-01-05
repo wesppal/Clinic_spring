@@ -11,7 +11,7 @@ public interface PetService {
 
     Pet addPet(Pet pet);
 
-    void updatePet(long id, Pet pet);
+    void updatePet(Pet pet);
 
     void updateStatus(long id, String status);
 

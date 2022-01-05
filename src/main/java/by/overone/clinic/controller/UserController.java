@@ -36,7 +36,7 @@ public class UserController {
         return userService.getUserByFullName(name, surname);
     }
 
-    @PostMapping("/reg")
+    @PostMapping("/")
     public User addUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {
         return userService.addUser(userRegistrationDTO);
     }

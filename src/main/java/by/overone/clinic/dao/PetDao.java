@@ -12,7 +12,7 @@ public interface PetDao {
 
     Pet addPet(Pet pet);
 
-    Pet updatePet(long id, Pet pet);
+    Pet updatePet(Pet pet);
 
     void updateStatus(long id, String status);
 

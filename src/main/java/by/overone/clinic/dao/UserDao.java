@@ -9,10 +9,16 @@ import java.util.Optional;
 
 public interface UserDao {
     List<User> getAllUsers();
+
     Optional<User> getUserById(long id);
+
     List<User> getUserByNameSurname(String name, String surname);
+
     User addUser(User user);
+
     void removeUserById(long id);
+
     void updateUserDetails(UserDetail userDetail);
+
     Optional<UserInfoDTO> allInfoUser(long id);
 }
