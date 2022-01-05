@@ -3,6 +3,7 @@ package by.overone.clinic.controller;
 import by.overone.clinic.model.Pet;
 import by.overone.clinic.service.PetService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,15 +21,15 @@ public class PetController {
     }
 
     @GetMapping("/{id}")
-    public Pet readPet(@PathVariable long id) {return petService.getPetById(id);}
-
-    @GetMapping("/user{user_id}")
-    public List<Pet> readPetsForUser(@RequestParam long user_id) {
-        return petService.getPetByUserId(user_id);
+    public Pet readPet(@PathVariable long id) {
+        return petService.getPetById(id);
     }
 
     @PostMapping("/reg-pet")
-    public Pet addPet(@RequestBody Pet pet) {return petService.addPet(pet);}
+    @ResponseStatus(HttpStatus.CREATED)
+    public Pet addPet(@RequestBody Pet pet) {
+        return petService.addPet(pet);
+    }
 
     @GetMapping("/{id}/update")
     public void updatePet(@PathVariable long id, @RequestBody Pet pet) {

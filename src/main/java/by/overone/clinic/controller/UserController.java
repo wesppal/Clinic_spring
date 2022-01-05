@@ -3,8 +3,10 @@ package by.overone.clinic.controller;
 import by.overone.clinic.dto.UserDTO;
 import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.dto.UserRegistrationDTO;
+import by.overone.clinic.model.Pet;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetail;
+import by.overone.clinic.service.PetService;
 import by.overone.clinic.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
+    private final PetService petService;
 
     @GetMapping
     public List<UserDTO> readAll() {
@@ -52,5 +55,10 @@ public class UserController {
     @GetMapping("/{id}/info")
     public UserInfoDTO readInfoUser(@PathVariable long id) {
         return userService.allInfoUser(id);
+    }
+
+    @GetMapping("/{user_id}/pets")
+    public List<Pet> readPetsForUser(@PathVariable long user_id) {
+        return petService.getPetByUserId(user_id);
     }
 }
