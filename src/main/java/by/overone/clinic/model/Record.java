@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MedicalCard {
+public class Record {
     private long record_id;
     private String record_data;
     private String doctor;
