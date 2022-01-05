@@ -50,27 +50,32 @@ public class PetDaoImpl implements PetDao {
 
     @Override
     public Pet updatePet(long id, Pet pet) {
+        //id look
         Pet petTemp = getPetById(id).orElseThrow(RuntimeException::new);
         if (petTemp.getName() != null) {
             if (pet.getName() == null) {
                 pet.setName(petTemp.getName());
             }
         }
+
         if (petTemp.getAge() != 0) {
             if (pet.getAge() == 0) {
                 pet.setAge(petTemp.getAge());
             }
         }
+
         if (petTemp.getType_of_pet() != null) {
             if (pet.getType_of_pet() == null) {
                 pet.setType_of_pet(petTemp.getType_of_pet());
             }
         }
+
         if (petTemp.getOwner() != null) {
             if (pet.getOwner() == null) {
                 pet.setOwner(petTemp.getOwner());
             }
         }
+
         if (pet.getUser_id() == 0) {
             pet.setUser_id(petTemp.getUser_id());
         }
@@ -86,6 +91,7 @@ public class PetDaoImpl implements PetDao {
         jdbcTemplate.update(UPDATE_PET_STATUS_SQL, status, id);
     }
 
+    //можно удалить и только в сервисе
     @Override
     public void deletePet(long id) {
         String status = "DELETED";

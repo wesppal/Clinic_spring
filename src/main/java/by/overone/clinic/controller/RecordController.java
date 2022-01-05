@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/cards")
+@RequestMapping("/api/records")
 public class RecordController {
 
 }

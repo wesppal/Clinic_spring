@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -67,6 +68,7 @@ public class UserDaoImpl implements UserDao {
                 new BeanPropertyRowMapper<>(User.class));
     }
 
+    @Transactional
     @Override
     public User addUser(User user) {
         user.setRole("USER");
