@@ -40,6 +40,7 @@ public class PetDaoImpl implements PetDao {
 
     @Override
     public Pet addPet(Pet pet) {
+        userDao.getUserById(pet.getUser_id());
         pet.setStatus("VERIFY");
         UserInfoDTO user = userDao.getUserDetails(pet.getUser_id()).orElseThrow();
         pet.setOwner(user.getName());
@@ -50,6 +51,7 @@ public class PetDaoImpl implements PetDao {
 
     @Override
     public Pet updatePet(Pet pet) {
+        getPetById(pet.getPet_id());
         Pet petTemp = getPetById(pet.getPet_id()).orElseThrow(RuntimeException::new);
         if (petTemp.getName() != null) {
             if (pet.getName() == null) {
@@ -90,15 +92,16 @@ public class PetDaoImpl implements PetDao {
         jdbcTemplate.update(UPDATE_PET_STATUS_SQL, status, id);
     }
 
-    //можно удалить и только в сервисе
-    @Override
-    public void deletePet(long id) {
-        String status = "DELETED";
-        updateStatus(id, status);
-    }
+//    //можно удалить и только в сервисе
+//    @Override
+//    public void deletePet(long id) {
+//        String status = "DELETED";
+//        updateStatus(id, status);
+//    }
 
     @Override
     public List<Pet> getPetByUserId(long user_id) {
+        userDao.getUserById(user_id);
         return jdbcTemplate.query(GET_PETS_BY_USER_ID_SQL, new Object[]{user_id},
                 new BeanPropertyRowMapper<>(Pet.class));
     }

@@ -40,7 +40,7 @@ public class PetController {
 
     @PatchMapping("/{id}/remove")
     public void removePet(@PathVariable long id) {
-        petService.deletePet(id);
+        petService.removePetById(id);
     }
 }
 

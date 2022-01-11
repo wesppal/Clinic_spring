@@ -81,8 +81,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void removeUserById(long id) {
-        String status = "DELETED";
+    public void updateStatus(long id, String status) {
         jdbcTemplate.update(UPDATE_USER_STATUS_SQL, status, id);
     }
 

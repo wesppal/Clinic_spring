@@ -51,7 +51,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void removeUserById(long id) {
-            userDao.removeUserById(id);
+        String status = "DELETED";
+            userDao.updateStatus(id, status);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInfoDTO allInfoUser(long id) {
+    public UserInfoDTO getUserDetails(long id) {
         return userDao.getUserDetails(id).orElseThrow(RuntimeException::new);
     }
 }

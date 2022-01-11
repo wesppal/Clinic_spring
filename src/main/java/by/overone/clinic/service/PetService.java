@@ -13,9 +13,7 @@ public interface PetService {
 
     void updatePet(Pet pet);
 
-    void updateStatus(long id, String status);
-
-    void deletePet(long id);
+    void removePetById(long id);
 
     List<Pet> getPetByUserId(long user_id);
 }

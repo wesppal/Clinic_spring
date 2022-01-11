@@ -56,7 +56,7 @@ public class UserController {
 
     @GetMapping("/{id}/info")
     public UserInfoDTO readInfoUser(@PathVariable long id) {
-        return userService.allInfoUser(id);
+        return userService.getUserDetails(id);
     }
 
     @GetMapping("/{user_id}/pets")

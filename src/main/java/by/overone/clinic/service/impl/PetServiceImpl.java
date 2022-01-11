@@ -1,6 +1,7 @@
 package by.overone.clinic.service.impl;
 
 import by.overone.clinic.dao.PetDao;
+import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.model.Pet;
 import by.overone.clinic.service.PetService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class PetServiceImpl implements PetService {
 
     private final PetDao petDao;
+    private final UserDao userDao;
 
     @Override
     public List<Pet> getPets() {
@@ -33,21 +35,19 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public void updatePet(Pet pet) {
+        petDao.getPetById(pet.getPet_id());
         petDao.updatePet(pet);
     }
 
     @Override
-    public void updateStatus(long id, String status) {
+    public void removePetById(long id) {
+        String status = "DELETED";
         petDao.updateStatus(id, status);
     }
 
     @Override
-    public void deletePet(long id) {
-        petDao.deletePet(id);
-    }
-
-    @Override
     public List<Pet> getPetByUserId(long user_id) {
+        userDao.getUserById(user_id);
         return petDao.getPetByUserId(user_id);
     }
 }
