@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -79,7 +78,6 @@ public class UserDaoImpl implements UserDao {
                 new BeanPropertyRowMapper<>(User.class));
     }
 
-    @Transactional
     @Override
     public User addUser(User user) {
         user.setRole("USER");
@@ -87,9 +85,16 @@ public class UserDaoImpl implements UserDao {
 
         simpleJdbcInsert.withTableName("user").usingGeneratedKeyColumns(UserConst.ID);
         Number id = simpleJdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(user));
-        jdbcTemplate.update(ADD_ID_BY_DETAIL_SQL, id.longValue());
+        user.setId(id.longValue());
         return user;
     }
+
+    @Override
+    public UserDetails addUserDetails(UserDetails userDetails) {
+        jdbcTemplate.update(ADD_ID_BY_DETAIL_SQL, userDetails.getUser_id());
+        return userDetails;
+    }
+
 
     @Override
     public void updateStatus(long id, String status) {
