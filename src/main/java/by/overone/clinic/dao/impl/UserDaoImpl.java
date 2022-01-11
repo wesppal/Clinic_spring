@@ -3,7 +3,7 @@ package by.overone.clinic.dao.impl;
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.model.User;
-import by.overone.clinic.model.UserDetail;
+import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.util.UserConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -25,10 +25,21 @@ public class UserDaoImpl implements UserDao {
     private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM user JOIN user_details on user_id=id";
     private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO user_details user_id VALUES ?";
     private final static String UPDATE_USER_STATUS_SQL = "UPDATE user SET status =? WHERE id=?";
-    private final static String UPDATE_USER_DETAILS_SQL = "UPDATE user_details SET name = ?, surname = ?, address = ?, " +
-            "phoneNumber = ? WHERE user_id = ?";
-    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT id, login, email, user_details.name, " +
-            "user_details.surname, user_details.address, user_details.phoneNumber FROM user JOIN user_details on user_details.user_id=user.id " +
+    private final static String UPDATE_USER_DETAILS_SQL = "UPDATE user_details SET " +
+            "name=COALESCE(?,name), " +
+            "surname=COALESCE(?,surname), " +
+            "address=COALESCE(?,address), " +
+            "phoneNumber=COALESCE(?,phoneNumber) " +
+            "WHERE user_id = ?";
+    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT " +
+            "id," +
+            "login," +
+            "email," +
+            "user_details.name, " +
+            "user_details.surname," +
+            "user_details.address," +
+            "user_details.phoneNumber" +
+            "FROM user JOIN user_details on user_details.user_id=user.id " +
             "WHERE id = ? AND status != 'deleted'";
 
     private final JdbcTemplate jdbcTemplate;
@@ -86,29 +97,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUserDetails(UserDetail userDetail) {
-        UserInfoDTO userTemp = getUserDetails(userDetail.getUser_id()).orElseThrow();
-
-        if (userTemp.getName() != null) {
-            if (userDetail.getName() == null) {
-                userDetail.setName(userTemp.getName());
-            }
-        }
-        if (userTemp.getSurname() != null) {
-            if (userDetail.getSurname() == null) {
-                userDetail.setSurname(userTemp.getSurname());
-            }
-        }
-        if (userTemp.getAddress() != null) {
-            if (userDetail.getAddress() == null) {
-                userDetail.setAddress(userTemp.getAddress());
-            }
-        }
-        if (userTemp.getPhoneNumber() != null) {
-            if (userDetail.getPhoneNumber() == null) {
-                userDetail.setPhoneNumber(userTemp.getPhoneNumber());
-            }
-        }
+    public void updateUserDetails(UserDetails userDetail) {
         jdbcTemplate.update(UPDATE_USER_DETAILS_SQL, userDetail.getName(), userDetail.getSurname(),
                 userDetail.getAddress(), userDetail.getPhoneNumber(), userDetail.getUser_id());
     }

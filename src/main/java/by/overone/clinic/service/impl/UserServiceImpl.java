@@ -5,7 +5,7 @@ import by.overone.clinic.dto.UserDTO;
 import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.dto.UserRegistrationDTO;
 import by.overone.clinic.model.User;
-import by.overone.clinic.model.UserDetail;
+import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserDetails(UserDetail userDetail) {
+    public void updateUserDetails(UserDetails userDetail) {
         userDao.updateUserDetails(userDetail);
     }
 

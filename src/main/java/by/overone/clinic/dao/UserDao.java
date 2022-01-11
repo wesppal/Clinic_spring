@@ -2,7 +2,7 @@ package by.overone.clinic.dao;
 
 import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.model.User;
-import by.overone.clinic.model.UserDetail;
+import by.overone.clinic.model.UserDetails;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +18,7 @@ public interface UserDao {
 
     void updateStatus(long id, String status);
 
-    void updateUserDetails(UserDetail userDetail);
+    void updateUserDetails(UserDetails userDetail);
 
     Optional<UserInfoDTO> getUserDetails(long id);
 }

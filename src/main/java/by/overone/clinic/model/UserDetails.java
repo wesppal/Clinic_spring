@@ -3,7 +3,7 @@ package by.overone.clinic.model;
 import lombok.Data;
 
 @Data
-public class UserDetail {
+public class UserDetails {
     private long user_id;
     private String name;
     private String surname;

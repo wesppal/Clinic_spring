@@ -5,7 +5,7 @@ import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.dto.UserRegistrationDTO;
 import by.overone.clinic.model.Pet;
 import by.overone.clinic.model.User;
-import by.overone.clinic.model.UserDetail;
+import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.service.PetService;
 import by.overone.clinic.service.UserService;
 import lombok.AllArgsConstructor;
@@ -48,7 +48,7 @@ public class UserController {
 
 
     @PatchMapping("/{id}/info")
-    public void updateDetailUser(@PathVariable long id, @RequestBody UserDetail userDetail) {
+    public void updateDetailUser(@PathVariable long id, @RequestBody UserDetails userDetail) {
         if (userDetail.getUser_id() == id){
             userService.updateUserDetails(userDetail);
         }

@@ -4,7 +4,7 @@ import by.overone.clinic.dto.UserDTO;
 import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.dto.UserRegistrationDTO;
 import by.overone.clinic.model.User;
-import by.overone.clinic.model.UserDetail;
+import by.overone.clinic.model.UserDetails;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface UserService {
     List<UserDTO> getUserByFullName (String name, String surname);
     User addUser(UserRegistrationDTO user);
     void removeUserById(long id);
-    void updateUserDetails(UserDetail userDetail);
+    void updateUserDetails(UserDetails userDetail);
     UserInfoDTO getUserDetails(long id);
 }
