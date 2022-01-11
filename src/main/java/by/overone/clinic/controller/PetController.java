@@ -31,12 +31,14 @@ public class PetController {
         return petService.addPet(pet);
     }
 
-    @GetMapping("/update")
-    public void updatePet( @RequestBody Pet pet) {
-        petService.updatePet(pet);
+    @PatchMapping("/{id}")
+    public void updatePet(@PathVariable long id, @RequestBody Pet pet) {
+        if (pet.getPet_id() == id) {
+            petService.updatePet(pet);
+        }
     }
 
-    @GetMapping("/{id}/remove")
+    @PatchMapping("/{id}/remove")
     public void removePet(@PathVariable long id) {
         petService.deletePet(id);
     }

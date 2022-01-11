@@ -22,13 +22,13 @@ public class UserDaoImpl implements UserDao {
 
     private final static String GET_ALL_USERS_SQL = "SELECT * FROM user where status != 'deleted'";
     private final static String GET_USER_BY_ID_SQL = "SELECT * FROM user WHERE id=?";
-    private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM user JOIN details on user_id=id";
-    private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO details user_id VALUES ?";
+    private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM user JOIN user_details on user_id=id";
+    private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO user_details user_id VALUES ?";
     private final static String UPDATE_USER_STATUS_SQL = "UPDATE user SET status =? WHERE id=?";
-    private final static String UPDATE_USER_DETAILS_SQL = "UPDATE details SET name = ?, surname = ?, address = ?, " +
+    private final static String UPDATE_USER_DETAILS_SQL = "UPDATE user_details SET name = ?, surname = ?, address = ?, " +
             "phoneNumber = ? WHERE user_id = ?";
-    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT id, login, email, details.name, " +
-            "details.surname, details.address, details.phoneNumber FROM user JOIN details on details.user_id=user.id " +
+    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT id, login, email, user_details.name, " +
+            "user_details.surname, user_details.address, user_details.phoneNumber FROM user JOIN user_details on user_details.user_id=user.id " +
             "WHERE id = ? AND status != 'deleted'";
 
     private final JdbcTemplate jdbcTemplate;
@@ -88,7 +88,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUserDetails(UserDetail userDetail) {
-        UserInfoDTO userTemp = allInfoUser(userDetail.getUser_id()).orElseThrow();
+        UserInfoDTO userTemp = getUserDetails(userDetail.getUser_id()).orElseThrow();
 
         if (userTemp.getName() != null) {
             if (userDetail.getName() == null) {
@@ -115,7 +115,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<UserInfoDTO> allInfoUser(long id) {
+    public Optional<UserInfoDTO> getUserDetails(long id) {
         return jdbcTemplate.query(GET_ALL_INFO_USER_BY_ID_SQL, new Object[]{id},
                 new BeanPropertyRowMapper<>(UserInfoDTO.class)).stream().findAny();
     }

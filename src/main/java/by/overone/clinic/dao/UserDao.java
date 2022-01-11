@@ -20,5 +20,5 @@ public interface UserDao {
 
     void updateUserDetails(UserDetail userDetail);
 
-    Optional<UserInfoDTO> allInfoUser(long id);
+    Optional<UserInfoDTO> getUserDetails(long id);
 }

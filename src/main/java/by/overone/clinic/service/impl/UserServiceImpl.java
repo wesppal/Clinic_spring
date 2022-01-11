@@ -61,6 +61,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfoDTO allInfoUser(long id) {
-        return userDao.allInfoUser(id).orElseThrow(RuntimeException::new);
+        return userDao.getUserDetails(id).orElseThrow(RuntimeException::new);
     }
 }

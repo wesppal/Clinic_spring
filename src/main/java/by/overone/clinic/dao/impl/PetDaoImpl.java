@@ -41,7 +41,7 @@ public class PetDaoImpl implements PetDao {
     @Override
     public Pet addPet(Pet pet) {
         pet.setStatus("VERIFY");
-        UserInfoDTO user = userDao.allInfoUser(pet.getUser_id()).orElseThrow();
+        UserInfoDTO user = userDao.getUserDetails(pet.getUser_id()).orElseThrow();
         pet.setOwner(user.getName());
         jdbcTemplate.update(ADD_NEW_PET_SQL, pet.getName(), pet.getAge(), pet.getType_of_pet(),
                 pet.getOwner(), pet.getUser_id(), pet.getStatus());

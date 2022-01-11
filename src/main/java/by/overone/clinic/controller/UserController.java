@@ -41,15 +41,17 @@ public class UserController {
         return userService.addUser(userRegistrationDTO);
     }
 
-    @GetMapping("/{id}/remove")
+    @PatchMapping("/{id}/remove")
     public void removeUser(@PathVariable long id) {
         userService.removeUserById(id);
     }
 
 
-    @GetMapping("/det-update")
-    public void updateDetailUser(@RequestBody UserDetail userDetail) {
-        userService.updateUserDetails(userDetail);
+    @PatchMapping("/{id}/info")
+    public void updateDetailUser(@PathVariable long id, @RequestBody UserDetail userDetail) {
+        if (userDetail.getUser_id() == id){
+            userService.updateUserDetails(userDetail);
+        }
     }
 
     @GetMapping("/{id}/info")
