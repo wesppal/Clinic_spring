@@ -16,7 +16,7 @@ public interface UserDao {
 
     User addUser(User user);
 
-    UserDetails addUserDetails(UserDetails userDetails);
+    void addUserDetails(long id);
 
     void updateStatus(long id, String status);
 

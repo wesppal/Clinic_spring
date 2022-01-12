@@ -10,6 +10,7 @@ import by.overone.clinic.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
                 u.getLogin(), u.getEmail())).collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public User addUser(UserRegistrationDTO userDTO) {
         User user = new User();
@@ -46,13 +48,14 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userDTO.getPassword());
         user.setEmail(userDTO.getEmail());
         user = userDao.addUser(user);
+        userDao.addUserDetails(user.getId());
         return user;
     }
 
     @Override
     public void removeUserById(long id) {
         String status = "DELETED";
-            userDao.updateStatus(id, status);
+        userDao.updateStatus(id, status);
     }
 
     @Override

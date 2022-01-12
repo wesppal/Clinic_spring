@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
     private final static String GET_ALL_USERS_SQL = "SELECT * FROM user where status != 'deleted'";
     private final static String GET_USER_BY_ID_SQL = "SELECT * FROM user WHERE id=?";
     private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM user JOIN user_details on user_id=id";
-    private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO user_details user_id VALUES ?";
+    private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO user_details Set user_id=?";
     private final static String UPDATE_USER_STATUS_SQL = "UPDATE user SET status =? WHERE id=?";
     private final static String UPDATE_USER_DETAILS_SQL = "UPDATE user_details SET " +
             "name=COALESCE(?,name), " +
@@ -82,7 +82,6 @@ public class UserDaoImpl implements UserDao {
     public User addUser(User user) {
         user.setRole("USER");
         user.setStatus("VERIFY");
-
         simpleJdbcInsert.withTableName("user").usingGeneratedKeyColumns(UserConst.ID);
         Number id = simpleJdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(user));
         user.setId(id.longValue());
@@ -90,9 +89,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserDetails addUserDetails(UserDetails userDetails) {
-        jdbcTemplate.update(ADD_ID_BY_DETAIL_SQL, userDetails.getUser_id());
-        return userDetails;
+    public void addUserDetails(long user_id) {
+        jdbcTemplate.update(ADD_ID_BY_DETAIL_SQL, user_id);
     }
 
 

@@ -92,12 +92,6 @@ public class PetDaoImpl implements PetDao {
         jdbcTemplate.update(UPDATE_PET_STATUS_SQL, status, id);
     }
 
-//    //можно удалить и только в сервисе
-//    @Override
-//    public void deletePet(long id) {
-//        String status = "DELETED";
-//        updateStatus(id, status);
-//    }
 
     @Override
     public List<Pet> getPetByUserId(long user_id) {
