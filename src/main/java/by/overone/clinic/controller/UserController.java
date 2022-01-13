@@ -11,6 +11,7 @@ import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.service.PetService;
 import by.overone.clinic.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/")
+    @ResponseStatus(HttpStatus.CREATED)
     public User addUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {
         return userService.addUser(userRegistrationDTO);
     }
