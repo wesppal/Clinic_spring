@@ -30,16 +30,9 @@ public class UserDaoImpl implements UserDao {
             "address=COALESCE(?,address), " +
             "phoneNumber=COALESCE(?,phoneNumber) " +
             "WHERE user_id = ?";
-    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT " +
-            "id," +
-            "login," +
-            "email," +
-            "user_details.name, " +
-            "user_details.surname," +
-            "user_details.address," +
-            "user_details.phoneNumber" +
-            "FROM user JOIN user_details on user_details.user_id=user.id " +
-            "WHERE id = ? AND status != 'deleted'";
+    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT id, login, email,name,surname,address," +
+            "phoneNumber FROM user_details JOIN user on user.id=user_details.user_id " +
+            "WHERE user_id = ? AND user.status != 'DELETED'";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
