@@ -38,7 +38,8 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public void updatePet(Pet pet) {
-        petDao.getPetById(pet.getPet_id());
+        petDao.getPetById(pet.getPet_id())
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
         petDao.updatePet(pet);
     }
 
