@@ -22,11 +22,20 @@ public class AppExceptionHandler {
         response.setErrorCode(e.getMessage());
         String message = "";
         switch (e.getMessage()) {
+            case "31":
+                message = "User ID error.";
+                break;
             case "40":
-                message = "User not found";
+                message = "User not found.";
                 break;
             case "41":
-                message = "Pet not found";
+                message = "Pet not found.";
+                break;
+            case "42":
+                message = "This user don't have pets.";
+                break;
+            case "43":
+                message = "User was not found for your request.";
                 break;
         }
         response.setMessage(message);

@@ -4,6 +4,8 @@ import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.UserDTO;
 import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.dto.UserRegistrationDTO;
+import by.overone.clinic.exception.EntityNotFoundException;
+import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.service.UserService;
@@ -30,12 +32,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserById(long id) {
-        User user = userDao.getUserById(id).orElseThrow(RuntimeException::new);
+        User user = userDao.getUserById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
         return modelMapper.map(user, UserDTO.class);
     }
 
     @Override
     public List<UserDTO> getUserByFullName(String name, String surname) {
+        List<User> users = userDao.getUserByNameSurname(name, surname);
+        if (users.size() < 1) {
+            throw new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER_WITH_NAME.getErrorCode());
+        }
         return userDao.getUserByNameSurname(name, surname).stream().map(u -> new UserDTO(u.getId(),
                 u.getLogin(), u.getEmail())).collect(Collectors.toList());
     }
@@ -65,6 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfoDTO getUserDetails(long id) {
-        return userDao.getUserDetails(id).orElseThrow(RuntimeException::new);
+        return userDao.getUserDetails(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
     }
 }

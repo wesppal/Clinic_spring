@@ -2,6 +2,8 @@ package by.overone.clinic.service.impl;
 
 import by.overone.clinic.dao.PetDao;
 import by.overone.clinic.dao.UserDao;
+import by.overone.clinic.exception.EntityNotFoundException;
+import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.Pet;
 import by.overone.clinic.service.PetService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,8 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet getPetById(long id) {
-        Pet pet = petDao.getPetById(id).orElseThrow(RuntimeException::new);
+        Pet pet = petDao.getPetById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
         return pet;
     }
 
@@ -47,7 +50,12 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<Pet> getPetByUserId(long user_id) {
-        userDao.getUserById(user_id);
-        return petDao.getPetByUserId(user_id);
+        userDao.getUserById(user_id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
+        List<Pet> pets = petDao.getPetByUserId(user_id);
+        if (pets.size() < 1) {
+            throw new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PETS_BY_USER.getErrorCode());
+        }
+            return petDao.getPetByUserId(user_id);
     }
 }
