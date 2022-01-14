@@ -10,10 +10,18 @@ import java.util.List;
 
 public interface UserService {
     List<UserDTO> getAllUsers();
+
     UserDTO getUserById(long id);
-    List<UserDTO> getUserByFullName (String name, String surname);
+
+    List<UserDTO> getUserByFullName(String name, String surname);
+
     User addUser(UserRegistrationDTO user);
+
     UserInfoDTO removeUserById(long id);
+
     UserDetails updateUserDetails(UserDetails userDetail);
+
     UserInfoDTO getUserDetails(long id);
+
+    UserInfoDTO verifyUser(long id);
 }

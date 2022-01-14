@@ -1,6 +1,7 @@
 package by.overone.clinic.dao;
 
 import by.overone.clinic.model.Pet;
+import by.overone.clinic.util.Status;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +15,7 @@ public interface PetDao {
 
     void updatePet(Pet pet);
 
-    void updateStatus(long id, String status);
+    void updateStatus(long id, Enum<Status> status);
 
     List<Pet> getPetByUserId(long user_id);
 }

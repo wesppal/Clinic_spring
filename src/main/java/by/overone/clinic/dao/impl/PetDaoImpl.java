@@ -70,8 +70,8 @@ public class PetDaoImpl implements PetDao {
     }
 
     @Override
-    public void updateStatus(long id, String status) {
-        jdbcTemplate.update(UPDATE_PET_STATUS_SQL, status, id);
+    public void updateStatus(long id, Enum<Status> status) {
+        jdbcTemplate.update(UPDATE_PET_STATUS_SQL, status.toString(), id);
     }
 
 

@@ -76,4 +76,9 @@ public class UserController {
     public List<Pet> readPetsForUser(@PathVariable long user_id) {
         return petService.getPetByUserId(user_id);
     }
+
+    @GetMapping("/{id}/verify")
+    public UserInfoDTO verifyUser(@PathVariable long id) {
+        return userService.verifyUser(id);
+    }
 }

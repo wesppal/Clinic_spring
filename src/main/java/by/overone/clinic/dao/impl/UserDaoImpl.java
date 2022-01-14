@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
     private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM " + UserConst.TABLE_NAME +
             " JOIN " + UserDetailConst.TABLE_NAME + " on " + UserDetailConst.ID + "=" + UserConst.ID;
     private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO " + UserDetailConst.TABLE_NAME +
-            " Set " + UserDetailConst.ID + "=?";
+            " SET " + UserDetailConst.ID + "=?";
     private final static String UPDATE_USER_STATUS_SQL = "UPDATE " + UserConst.TABLE_NAME +
             " SET " + UserConst.STATUS + " =? WHERE " + UserConst.ID + "=?";
     private final static String UPDATE_USER_DETAILS_SQL = "UPDATE " + UserDetailConst.TABLE_NAME + " SET " +
@@ -38,12 +38,11 @@ public class UserDaoImpl implements UserDao {
             UserDetailConst.ADDRESS + "=COALESCE(?," + UserDetailConst.ADDRESS + "), " +
             UserDetailConst.PHONENUMBER + "=COALESCE(?," + UserDetailConst.PHONENUMBER + ") " +
             "WHERE " + UserDetailConst.ID + " = ?";
-    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT " + UserConst.ID + ", " + UserConst.LOGIN +
-            ", " + UserConst.EMAIL + "," + UserDetailConst.NAME + "," + UserDetailConst.SURNAME + "," +
-            UserDetailConst.ADDRESS + "," + UserDetailConst.PHONENUMBER +
-            " FROM " + UserDetailConst.TABLE_NAME + " JOIN " + UserConst.TABLE_NAME + " on " +
-            UserConst.TABLE_NAME + "." + UserConst.ID + "=" + UserDetailConst.TABLE_NAME + "." + UserDetailConst.ID +
-            " WHERE " + UserDetailConst.ID + " = ?";
+    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT " + UserConst.ID + ", " + UserConst.LOGIN + ", " +
+            UserConst.EMAIL + "," + UserConst.ROLE + "," + UserDetailConst.NAME + "," + UserDetailConst.SURNAME + "," +
+            UserDetailConst.ADDRESS + "," + UserDetailConst.PHONENUMBER + " FROM " + UserDetailConst.TABLE_NAME +
+            " JOIN " + UserConst.TABLE_NAME + " on " + UserConst.TABLE_NAME + "." + UserConst.ID + "=" +
+            UserDetailConst.TABLE_NAME + "." + UserDetailConst.ID + " WHERE " + UserDetailConst.ID + " = ?";
 
     private final JdbcTemplate jdbcTemplate;
     @Autowired
@@ -100,7 +99,8 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public void updateStatus(long id, String status) {
+    public void updateStatus(long id, Enum<Status> stat) {
+        String status = stat.toString();
         jdbcTemplate.update(UPDATE_USER_STATUS_SQL, status, id);
     }
 
@@ -116,5 +116,4 @@ public class UserDaoImpl implements UserDao {
         return jdbcTemplate.query(GET_ALL_INFO_USER_BY_ID_SQL, new Object[]{id},
                 new BeanPropertyRowMapper<>(UserInfoDTO.class)).stream().findAny();
     }
-
 }

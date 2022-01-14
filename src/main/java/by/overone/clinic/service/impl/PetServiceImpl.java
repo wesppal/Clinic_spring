@@ -2,6 +2,7 @@ package by.overone.clinic.service.impl;
 
 import by.overone.clinic.dao.PetDao;
 import by.overone.clinic.dao.UserDao;
+import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.exception.EntityNotFoundException;
 import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.Pet;
@@ -48,8 +49,7 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet removePetById(long id) {
-        String status = Status.DELETED.toString();
-        petDao.updateStatus(id, status);
+        petDao.updateStatus(id, Status.DELETED);
         return petDao.getPetById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
     }
@@ -63,5 +63,12 @@ public class PetServiceImpl implements PetService {
             throw new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PETS_BY_USER.getErrorCode());
         }
             return petDao.getPetByUserId(user_id);
+    }
+
+    @Override
+    public Pet verifyPet(long id) {
+        petDao.updateStatus(id, Status.ACTIVE);
+        return petDao.getPetById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
     }
 }

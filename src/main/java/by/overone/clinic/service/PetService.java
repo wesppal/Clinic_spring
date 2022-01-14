@@ -16,4 +16,6 @@ public interface PetService {
     Pet removePetById(long id);
 
     List<Pet> getPetByUserId(long user_id);
+
+    Pet verifyPet(long id);
 }

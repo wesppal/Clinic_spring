@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         String status = Status.DELETED.toString();
         UserInfoDTO user = userDao.getUserDetails(id)
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
-        userDao.updateStatus(id, status);
+        userDao.updateStatus(id, Status.valueOf(status));
         return user;
     }
 
@@ -77,6 +77,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfoDTO getUserDetails(long id) {
+        return userDao.getUserDetails(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
+    }
+
+    @Override
+    public UserInfoDTO verifyUser(long id) {
+        userDao.updateStatus(id, Status.ACTIVE);
         return userDao.getUserDetails(id)
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
     }
