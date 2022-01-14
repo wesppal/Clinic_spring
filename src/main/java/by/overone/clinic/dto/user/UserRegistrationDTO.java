@@ -1,4 +1,4 @@
-package by.overone.clinic.dto;
+package by.overone.clinic.dto.user;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

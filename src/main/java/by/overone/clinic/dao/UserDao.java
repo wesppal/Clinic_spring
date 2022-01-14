@@ -1,6 +1,6 @@
 package by.overone.clinic.dao;
 
-import by.overone.clinic.dto.UserInfoDTO;
+import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.util.Status;

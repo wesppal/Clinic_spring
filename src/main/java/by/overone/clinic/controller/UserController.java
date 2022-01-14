@@ -1,8 +1,8 @@
 package by.overone.clinic.controller;
 
-import by.overone.clinic.dto.UserDTO;
-import by.overone.clinic.dto.UserInfoDTO;
-import by.overone.clinic.dto.UserRegistrationDTO;
+import by.overone.clinic.dto.user.UserDTO;
+import by.overone.clinic.dto.user.UserInfoDTO;
+import by.overone.clinic.dto.user.UserRegistrationDTO;
 import by.overone.clinic.exception.EntityNotFoundException;
 import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.Pet;

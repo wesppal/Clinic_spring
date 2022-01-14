@@ -1,8 +1,8 @@
 package by.overone.clinic.service;
 
-import by.overone.clinic.dto.UserDTO;
-import by.overone.clinic.dto.UserInfoDTO;
-import by.overone.clinic.dto.UserRegistrationDTO;
+import by.overone.clinic.dto.user.UserDTO;
+import by.overone.clinic.dto.user.UserInfoDTO;
+import by.overone.clinic.dto.user.UserRegistrationDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
 

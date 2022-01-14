@@ -2,7 +2,6 @@ package by.overone.clinic.service.impl;
 
 import by.overone.clinic.dao.PetDao;
 import by.overone.clinic.dao.UserDao;
-import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.exception.EntityNotFoundException;
 import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.Pet;
