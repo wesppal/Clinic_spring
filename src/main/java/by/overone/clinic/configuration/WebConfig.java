@@ -43,16 +43,16 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean(name = "user")
-    public SimpleJdbcInsert simpleJdbcInsert(JdbcTemplate jdbcTemplate) {
+    public SimpleJdbcInsert simpleJdbcInsertUser(JdbcTemplate jdbcTemplate) {
         return new SimpleJdbcInsert(jdbcTemplate).withTableName(UserConst.TABLE_NAME)
                 .usingGeneratedKeyColumns(UserConst.ID);
     }
 
-//    @Bean(name = "pet")
-//    public SimpleJdbcInsert simpleJdbcInsertPet(JdbcTemplate jdbcTemplate) {
-//        return new SimpleJdbcInsert(jdbcTemplate).withTableName(PetConst.TABLE_NAME)
-//                .usingGeneratedKeyColumns(PetConst.ID);
-//    }
+    @Bean(name = "pet")
+    public SimpleJdbcInsert simpleJdbcInsertPet(JdbcTemplate jdbcTemplate) {
+        return new SimpleJdbcInsert(jdbcTemplate).withTableName(PetConst.TABLE_NAME)
+                .usingGeneratedKeyColumns(PetConst.ID);
+    }
 
     @Bean
     public ModelMapper modelMapper() {

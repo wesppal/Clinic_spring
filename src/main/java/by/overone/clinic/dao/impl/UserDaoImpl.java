@@ -4,11 +4,14 @@ import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
+import by.overone.clinic.util.Role;
 import by.overone.clinic.util.Status;
+import by.overone.clinic.util.UserConst;
 import com.fasterxml.jackson.annotation.JacksonInject;
 import jdk.jfr.Name;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -36,11 +39,12 @@ public class UserDaoImpl implements UserDao {
             "WHERE user_id = ?";
     private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT id, login, email,name,surname,address," +
             "phoneNumber FROM user_details JOIN user on user.id=user_details.user_id " +
-            "WHERE user_id = ? AND user.status = '" + status + "'";
+            "WHERE user_id = ?";
 
     private final JdbcTemplate jdbcTemplate;
-//    @JacksonInject@Name("user")
-    private final SimpleJdbcInsert simpleJdbcInsert;
+    @Autowired
+    @Qualifier("user")
+    private SimpleJdbcInsert simpleJdbcInsert;
 
 
     @Override
@@ -79,8 +83,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User addUser(User user) {
-        user.setRole("USER");
-        user.setStatus("VERIFY");
+        user.setRole(Role.USER.toString());
+        user.setStatus(Status.VERIFY.toString());
         Number id = simpleJdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(user));
         user.setId(id.longValue());
         return user;
