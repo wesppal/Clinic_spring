@@ -1,12 +1,18 @@
 package by.overone.clinic.configuration;
 
+import by.overone.clinic.dao.UserDao;
+import by.overone.clinic.service.UserService;
+import by.overone.clinic.service.impl.UserServiceImpl;
+import by.overone.clinic.util.UserConst;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -37,7 +43,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     public SimpleJdbcInsert simpleJdbcInsert(JdbcTemplate jdbcTemplate) {
-        return new SimpleJdbcInsert(jdbcTemplate);
+        return new SimpleJdbcInsert(jdbcTemplate).withTableName("user")
+                .usingGeneratedKeyColumns(UserConst.ID);
     }
 
     @Bean
@@ -51,9 +58,14 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public TransactionManager transactionManager(DataSource dataSource){
+    public TransactionManager transactionManager(DataSource dataSource) {
         DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
         dataSourceTransactionManager.setDataSource(dataSource);
         return dataSourceTransactionManager;
+    }
+
+    @Bean
+    public UserService userService(UserDao userDao, ModelMapper modelMapper){
+        return new UserServiceImpl(userDao,modelMapper);
     }
 }

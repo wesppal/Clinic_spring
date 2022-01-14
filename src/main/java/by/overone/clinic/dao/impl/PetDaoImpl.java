@@ -57,13 +57,13 @@ public class PetDaoImpl implements PetDao {
 
     @Override
     public Pet updatePet(Pet pet) {
-        Pet temp = getPetById(pet.getPet_id()).orElseThrow();
-        if (pet.getUser_id() == 0) {
-            pet.setUser_id(temp.getUser_id());
-        }
-        if (pet.getAge() == 0) {
-            pet.setAge(temp.getAge());
-        }
+//        Pet temp = getPetById(pet.getPet_id()).orElseThrow();
+//        if (pet.getUser_id() == 0) {
+//            pet.setUser_id(temp.getUser_id());
+//        }
+//        if (pet.getAge() == 0) {
+//            pet.setAge(temp.getAge());
+//        }
         jdbcTemplate.update(UPDATE_PET_SQL, pet.getName(), pet.getAge(),
                 pet.getType_of_pet(), pet.getOwner(), pet.getUser_id(), pet.getStatus(), pet.getPet_id());
         return pet;

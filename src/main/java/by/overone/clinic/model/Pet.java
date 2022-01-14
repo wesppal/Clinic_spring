@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Pet {
         private long pet_id;
         private String name;
-        private int age;
+        private Integer age;
         private String type_of_pet;
         private String owner;
         private long user_id;

@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,7 +76,6 @@ public class UserDaoImpl implements UserDao {
     public User addUser(User user) {
         user.setRole("USER");
         user.setStatus("VERIFY");
-        simpleJdbcInsert.withTableName("user").usingGeneratedKeyColumns(UserConst.ID);
         Number id = simpleJdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(user));
         user.setId(id.longValue());
         return user;

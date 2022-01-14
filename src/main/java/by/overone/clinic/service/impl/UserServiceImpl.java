@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> getUserByFullName(String name, String surname) {
         List<User> users = userDao.getUserByNameSurname(name, surname);
-        if (users.size() < 1) {
+        if (users.isEmpty()) {
             throw new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER_WITH_NAME.getErrorCode());
         }
         return userDao.getUserByNameSurname(name, surname).stream().map(u -> new UserDTO(u.getId(),

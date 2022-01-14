@@ -6,4 +6,5 @@ public class UserDetailConst {
     public static final String SURNAME = "surname";
     public static final String ADDRESS = "address";
     public static final String PHONENUMBER = "phoneNumber";
+    public static final String TABLE_NAME = "user_details";
 }

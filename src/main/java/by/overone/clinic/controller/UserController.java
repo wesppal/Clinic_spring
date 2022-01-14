@@ -12,10 +12,13 @@ import by.overone.clinic.service.PetService;
 import by.overone.clinic.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@Validated
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/users")
@@ -41,7 +44,7 @@ public class UserController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public User addUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+    public User addUser(@Validated @RequestBody UserRegistrationDTO userRegistrationDTO) {
         return userService.addUser(userRegistrationDTO);
     }
 
