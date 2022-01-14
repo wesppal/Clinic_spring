@@ -4,11 +4,7 @@ import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
-import by.overone.clinic.util.Role;
-import by.overone.clinic.util.Status;
-import by.overone.clinic.util.UserConst;
-import com.fasterxml.jackson.annotation.JacksonInject;
-import jdk.jfr.Name;
+import by.overone.clinic.util.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,20 +22,28 @@ import java.util.Optional;
 public class UserDaoImpl implements UserDao {
     private static String status = Status.ACTIVE.toString();
 
-    private final static String GET_ALL_USERS_SQL = "SELECT * FROM user where status = '" + status + "'";
-    private final static String GET_USER_BY_ID_SQL = "SELECT * FROM user WHERE id=? AND status = '" + status + "'";
-    private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM user JOIN user_details on user_id=id";
-    private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO user_details Set user_id=?";
-    private final static String UPDATE_USER_STATUS_SQL = "UPDATE user SET status =? WHERE id=?";
-    private final static String UPDATE_USER_DETAILS_SQL = "UPDATE user_details SET " +
-            "name=COALESCE(?,name), " +
-            "surname=COALESCE(?,surname), " +
-            "address=COALESCE(?,address), " +
-            "phoneNumber=COALESCE(?,phoneNumber) " +
-            "WHERE user_id = ?";
-    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT id, login, email,name,surname,address," +
-            "phoneNumber FROM user_details JOIN user on user.id=user_details.user_id " +
-            "WHERE user_id = ?";
+    private final static String GET_ALL_USERS_SQL = "SELECT * FROM " + UserConst.TABLE_NAME +
+            " WHERE " + UserConst.STATUS + " = '" + status + "'";
+    private final static String GET_USER_BY_ID_SQL = "SELECT * FROM " + UserConst.TABLE_NAME +
+            " WHERE " + UserConst.ID + "=? AND " + UserConst.STATUS + " = '" + status + "'";
+    private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM " + UserConst.TABLE_NAME +
+            " JOIN " + UserDetailConst.TABLE_NAME + " on " + UserDetailConst.ID + "=" + UserConst.ID;
+    private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO " + UserDetailConst.TABLE_NAME +
+            " Set " + UserDetailConst.ID + "=?";
+    private final static String UPDATE_USER_STATUS_SQL = "UPDATE " + UserConst.TABLE_NAME +
+            " SET " + UserConst.STATUS + " =? WHERE " + UserConst.ID + "=?";
+    private final static String UPDATE_USER_DETAILS_SQL = "UPDATE " + UserDetailConst.TABLE_NAME + " SET " +
+            UserDetailConst.NAME + "=COALESCE(?," + UserDetailConst.NAME + "), " +
+            UserDetailConst.SURNAME + "=COALESCE(?," + UserDetailConst.SURNAME + "), " +
+            UserDetailConst.ADDRESS + "=COALESCE(?," + UserDetailConst.ADDRESS + "), " +
+            UserDetailConst.PHONENUMBER + "=COALESCE(?," + UserDetailConst.PHONENUMBER + ") " +
+            "WHERE " + UserDetailConst.ID + " = ?";
+    private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT " + UserConst.ID + ", " + UserConst.LOGIN +
+            ", " + UserConst.EMAIL + "," + UserDetailConst.NAME + "," + UserDetailConst.SURNAME + "," +
+            UserDetailConst.ADDRESS + "," + UserDetailConst.PHONENUMBER +
+            " FROM " + UserDetailConst.TABLE_NAME + " JOIN " + UserConst.TABLE_NAME + " on " +
+            UserConst.TABLE_NAME + "." + UserConst.ID + "=" + UserDetailConst.TABLE_NAME + "." + UserDetailConst.ID +
+            " WHERE " + UserDetailConst.ID + " = ?";
 
     private final JdbcTemplate jdbcTemplate;
     @Autowired
@@ -49,7 +53,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        status = Status.ACTIVE.toString();
         return jdbcTemplate.query(GET_ALL_USERS_SQL, new BeanPropertyRowMapper<>(User.class));
     }
 
@@ -63,9 +66,9 @@ public class UserDaoImpl implements UserDao {
     public List<User> getUserByNameSurname(String name, String surname) {
         String param = "";
         if (name != null) {
-            param += " where name = ?";
+            param += " where " + UserDetailConst.NAME + " = ?";
             if (surname != null) {
-                param += " AND surname = ?";
+                param += " AND " + UserDetailConst.SURNAME + " = ?";
                 return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{name, surname},
                         new BeanPropertyRowMapper<>(User.class));
             }
@@ -73,7 +76,7 @@ public class UserDaoImpl implements UserDao {
                     new BeanPropertyRowMapper<>(User.class));
         }
         if (surname != null) {
-            param += " where surname = ?";
+            param += " where " + UserDetailConst.SURNAME + " = ?";
             return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{surname},
                     new BeanPropertyRowMapper<>(User.class));
         }

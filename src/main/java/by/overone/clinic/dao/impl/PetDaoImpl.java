@@ -2,15 +2,9 @@ package by.overone.clinic.dao.impl;
 
 import by.overone.clinic.dao.PetDao;
 import by.overone.clinic.dao.UserDao;
-import by.overone.clinic.dto.UserInfoDTO;
-import by.overone.clinic.exception.EntityNotFoundException;
-import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.Pet;
 import by.overone.clinic.util.PetConst;
-import by.overone.clinic.util.Role;
 import by.overone.clinic.util.Status;
-import com.fasterxml.jackson.annotation.JacksonInject;
-import jdk.jfr.Name;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,7 +33,6 @@ public class PetDaoImpl implements PetDao {
             " WHERE " + PetConst.STATUS + " = '" + status + "'";
     private final static String GET_PET_BY_ID_SQL = "SELECT * FROM " + PetConst.TABLE_NAME +
             " WHERE " + PetConst.ID + "=?";
-    private final static String ADD_NEW_PET_SQL = "INSERT INTO " + PetConst.TABLE_NAME + " VALUE (0,?,?,?,?,?)";
     private final static String UPDATE_PET_STATUS_SQL = "UPDATE " + PetConst.TABLE_NAME + " SET " +
             PetConst.STATUS + " =(?) WHERE " + PetConst.ID + " = (?)";
     private final static String UPDATE_PET_SQL = "UPDATE " + PetConst.TABLE_NAME + " SET " +
