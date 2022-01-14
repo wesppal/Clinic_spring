@@ -9,6 +9,7 @@ import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.service.UserService;
+import by.overone.clinic.util.Status;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -60,14 +61,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeUserById(long id) {
-        String status = "DELETED";
+    public UserInfoDTO removeUserById(long id) {
+        String status = Status.DELETED.toString();
+        UserInfoDTO user = userDao.getUserDetails(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
         userDao.updateStatus(id, status);
+        return user;
     }
 
     @Override
-    public void updateUserDetails(UserDetails userDetail) {
-        userDao.updateUserDetails(userDetail);
+    public UserDetails updateUserDetails(UserDetails userDetail) {
+        UserDetails user = userDao.updateUserDetails(userDetail);
+        return user;
     }
 
     @Override

@@ -6,6 +6,7 @@ import by.overone.clinic.exception.EntityNotFoundException;
 import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.Pet;
 import by.overone.clinic.service.PetService;
+import by.overone.clinic.util.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,16 +38,20 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public void updatePet(Pet pet) {
+    public Pet updatePet(Pet pet) {
         petDao.getPetById(pet.getPet_id())
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
         petDao.updatePet(pet);
+        return petDao.getPetById(pet.getPet_id())
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
     }
 
     @Override
-    public void removePetById(long id) {
-        String status = "DELETED";
+    public Pet removePetById(long id) {
+        String status = Status.DELETED.toString();
         petDao.updateStatus(id, status);
+        return petDao.getPetById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
     }
 
     @Override

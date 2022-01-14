@@ -12,11 +12,9 @@ public interface PetDao {
 
     Pet addPet(Pet pet);
 
-    Pet updatePet(Pet pet);
+    void updatePet(Pet pet);
 
     void updateStatus(long id, String status);
-
-//    void deletePet(long id);
 
     List<Pet> getPetByUserId(long user_id);
 }

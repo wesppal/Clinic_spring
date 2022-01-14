@@ -13,7 +13,7 @@ public interface UserService {
     UserDTO getUserById(long id);
     List<UserDTO> getUserByFullName (String name, String surname);
     User addUser(UserRegistrationDTO user);
-    void removeUserById(long id);
-    void updateUserDetails(UserDetails userDetail);
+    UserInfoDTO removeUserById(long id);
+    UserDetails updateUserDetails(UserDetails userDetail);
     UserInfoDTO getUserDetails(long id);
 }

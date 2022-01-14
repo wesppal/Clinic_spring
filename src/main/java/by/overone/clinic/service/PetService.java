@@ -11,9 +11,9 @@ public interface PetService {
 
     Pet addPet(Pet pet);
 
-    void updatePet(Pet pet);
+    Pet updatePet(Pet pet);
 
-    void removePetById(long id);
+    Pet removePetById(long id);
 
     List<Pet> getPetByUserId(long user_id);
 }

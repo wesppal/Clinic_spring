@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Validated
@@ -49,18 +48,20 @@ public class UserController {
     }
 
     @PatchMapping("/{id}/remove")
-    public void removeUser(@PathVariable long id) {
-        userService.removeUserById(id);
+    public UserInfoDTO removeUser(@PathVariable long id) {
+        UserInfoDTO user = userService.removeUserById(id);
+        return user;
     }
 
 
     @PatchMapping("/{id}/info")
-    public void updateDetailUser(@PathVariable long id, @RequestBody UserDetails userDetail) {
-        if (userDetail.getUser_id() == 0) {
-            userDetail.setUser_id(id);
+    public UserDetails updateDetailUser(@PathVariable long id, @Validated @RequestBody UserDetails userDetails) {
+        if (userDetails.getUser_id() == 0) {
+            userDetails.setUser_id(id);
         }
-        if (userDetail.getUser_id() == id) {
-            userService.updateUserDetails(userDetail);
+        if (userDetails.getUser_id() == id) {
+            UserDetails user = userService.updateUserDetails(userDetails);
+            return user;
         } else {
             throw new EntityNotFoundException(ExceptionCode.NOT_MISMATCH_USER_ID.getErrorCode());
         }

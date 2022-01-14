@@ -4,24 +4,27 @@ import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.UserInfoDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
-import by.overone.clinic.util.UserConst;
+import by.overone.clinic.util.Status;
+import com.fasterxml.jackson.annotation.JacksonInject;
+import jdk.jfr.Name;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
 public class UserDaoImpl implements UserDao {
+    private static String status = Status.ACTIVE.toString();
 
-    private final static String GET_ALL_USERS_SQL = "SELECT * FROM user where status != 'deleted'";
-    private final static String GET_USER_BY_ID_SQL = "SELECT * FROM user WHERE id=?";
+    private final static String GET_ALL_USERS_SQL = "SELECT * FROM user where status = '" + status + "'";
+    private final static String GET_USER_BY_ID_SQL = "SELECT * FROM user WHERE id=? AND status = '" + status + "'";
     private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM user JOIN user_details on user_id=id";
     private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO user_details Set user_id=?";
     private final static String UPDATE_USER_STATUS_SQL = "UPDATE user SET status =? WHERE id=?";
@@ -33,14 +36,16 @@ public class UserDaoImpl implements UserDao {
             "WHERE user_id = ?";
     private final static String GET_ALL_INFO_USER_BY_ID_SQL = "SELECT id, login, email,name,surname,address," +
             "phoneNumber FROM user_details JOIN user on user.id=user_details.user_id " +
-            "WHERE user_id = ? AND user.status != 'DELETED'";
+            "WHERE user_id = ? AND user.status = '" + status + "'";
 
     private final JdbcTemplate jdbcTemplate;
+//    @JacksonInject@Name("user")
     private final SimpleJdbcInsert simpleJdbcInsert;
 
 
     @Override
     public List<User> getAllUsers() {
+        status = Status.ACTIVE.toString();
         return jdbcTemplate.query(GET_ALL_USERS_SQL, new BeanPropertyRowMapper<>(User.class));
     }
 
@@ -93,9 +98,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUserDetails(UserDetails userDetail) {
+    public UserDetails updateUserDetails(UserDetails userDetail) {
         jdbcTemplate.update(UPDATE_USER_DETAILS_SQL, userDetail.getName(), userDetail.getSurname(),
                 userDetail.getAddress(), userDetail.getPhoneNumber(), userDetail.getUser_id());
+        return userDetail;
     }
 
     @Override

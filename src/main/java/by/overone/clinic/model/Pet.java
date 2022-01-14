@@ -12,7 +12,6 @@ public class Pet {
         private String name;
         private Integer age;
         private String type_of_pet;
-        private String owner;
         private long user_id;
         private String status;
 }

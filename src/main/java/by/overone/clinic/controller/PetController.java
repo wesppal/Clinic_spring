@@ -34,20 +34,20 @@ public class PetController {
     }
 
     @PatchMapping("/{id}")
-    public void updatePet(@PathVariable long id, @RequestBody Pet pet) {
+    public Pet updatePet(@PathVariable long id, @RequestBody Pet pet) {
         if (pet.getPet_id() == 0) {
             pet.setPet_id(id);
         }
         if (pet.getPet_id() == id) {
-            petService.updatePet(pet);
+            return petService.updatePet(pet);
         } else {
             throw new EntityNotFoundException(ExceptionCode.NOT_MISMATCH_USER_ID.getErrorCode());
         }
     }
 
     @PatchMapping("/{id}/remove")
-    public void removePet(@PathVariable long id) {
-        petService.removePetById(id);
+    public Pet removePet(@PathVariable long id) {
+        return petService.removePetById(id);
     }
 }
 

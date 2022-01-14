@@ -20,7 +20,7 @@ public interface UserDao {
 
     void updateStatus(long id, String status);
 
-    void updateUserDetails(UserDetails userDetail);
+    UserDetails updateUserDetails(UserDetails userDetail);
 
     Optional<UserInfoDTO> getUserDetails(long id);
 }
