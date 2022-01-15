@@ -45,7 +45,7 @@ public class PetController {
         }
     }
 
-    @PatchMapping("/{id}/remove")
+    @DeleteMapping("/{id}/")
     public Pet removePet(@PathVariable long id) {
         return petService.removePetById(id);
     }

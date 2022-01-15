@@ -48,7 +48,7 @@ public class UserController {
         return userService.addUser(userRegistrationDTO);
     }
 
-    @PatchMapping("/{id}/remove")
+    @DeleteMapping("/{id}/")
     public UserInfoDTO removeUser(@PathVariable long id) {
         UserInfoDTO user = userService.removeUserById(id);
         return user;
