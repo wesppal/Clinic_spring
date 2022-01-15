@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @Validated
@@ -68,7 +69,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/info")
-    public UserInfoDTO readInfoUser(@PathVariable long id) {
+    public UserInfoDTO readInfoUser(@Validated @Min(1) @PathVariable long id) {
         return userService.getUserDetails(id);
     }
 

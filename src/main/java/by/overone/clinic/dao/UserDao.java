@@ -19,7 +19,7 @@ public interface UserDao {
 
     void addUserDetails(long id);
 
-    void updateStatus(long id, Enum<Status> stat);
+    void updateStatus(long id, Status stat);
 
     UserDetails updateUserDetails(UserDetails userDetail);
 

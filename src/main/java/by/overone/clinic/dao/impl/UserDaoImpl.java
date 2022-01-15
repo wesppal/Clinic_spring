@@ -6,6 +6,7 @@ import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.util.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class UserDaoImpl implements UserDao {
@@ -99,9 +101,8 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public void updateStatus(long id, Enum<Status> stat) {
-        String status = stat.toString();
-        jdbcTemplate.update(UPDATE_USER_STATUS_SQL, status, id);
+    public void updateStatus(long id, Status stat) {
+        jdbcTemplate.update(UPDATE_USER_STATUS_SQL, stat.toString(), id);
     }
 
     @Override

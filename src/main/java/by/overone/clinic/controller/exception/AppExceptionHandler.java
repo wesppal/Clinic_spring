@@ -43,6 +43,7 @@ public class AppExceptionHandler {
 
     @ExceptionHandler(SQLException.class)
     public ResponseEntity<ExceptionResponse> sqlExceptionHandler(SQLException e) {
+        log.error("SQL exception: ", e);
         ExceptionResponse response = new ExceptionResponse();
         response.setException(e.getClass().getSimpleName());
         response.setErrorCode("51");
