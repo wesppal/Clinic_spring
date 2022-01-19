@@ -88,25 +88,4 @@ public class WebConfig implements WebMvcConfigurer {
         return resolver;
     }
 
-    /**
-     * new hibernate
-     */
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(){
-        LocalContainerEntityManagerFactoryBean em
-                = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan("by.overvone.clinic.model");
-
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalProperties());
-
-        return em;
-    }
-
-    Properties additionalProperties(){
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto");
-    }
 }
