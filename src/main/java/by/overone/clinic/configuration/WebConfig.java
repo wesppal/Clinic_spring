@@ -15,12 +15,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @EnableTransactionManagement
 @Configuration
@@ -72,5 +78,35 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public UserService userService(UserDao userDao, ModelMapper modelMapper){
         return new UserServiceImpl(userDao,modelMapper);
+    }
+
+    @Bean
+    public ViewResolver internalResourceViewResolver(){
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/view/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+
+    /**
+     * new hibernate
+     */
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(){
+        LocalContainerEntityManagerFactoryBean em
+                = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan("by.overvone.clinic.model");
+
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(additionalProperties());
+
+        return em;
+    }
+
+    Properties additionalProperties(){
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.hbm2ddl.auto");
     }
 }
