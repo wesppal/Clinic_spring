@@ -2,14 +2,19 @@ package by.overone.clinic.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+@Entity
+@Table(name = "user_details")
 @Data
 public class UserDetails {
-    private long user_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Pattern(regexp = "[A-Za-z]+")
     private String name;
     @Pattern(regexp = "[A-Za-z]+")

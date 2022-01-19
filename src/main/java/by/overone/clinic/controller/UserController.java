@@ -57,15 +57,7 @@ public class UserController {
 
     @PatchMapping("/{id}/info")
     public UserDetails updateDetailUser(@PathVariable long id, @Validated @RequestBody UserDetails userDetails) {
-        if (userDetails.getUser_id() == 0) {
-            userDetails.setUser_id(id);
-        }
-        if (userDetails.getUser_id() == id) {
-            UserDetails user = userService.updateUserDetails(userDetails);
-            return user;
-        } else {
-            throw new EntityNotFoundException(ExceptionCode.NOT_MISMATCH_USER_ID.getErrorCode());
-        }
+return null;
     }
 
     @GetMapping("/{id}/info")

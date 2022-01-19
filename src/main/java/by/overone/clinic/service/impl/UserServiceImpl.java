@@ -9,6 +9,7 @@ import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.service.UserService;
+import by.overone.clinic.util.Role;
 import by.overone.clinic.util.Status;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -48,16 +50,17 @@ public class UserServiceImpl implements UserService {
                 u.getLogin(), u.getEmail())).collect(Collectors.toList());
     }
 
-    @Transactional
+
     @Override
     public User addUser(UserRegistrationDTO userDTO) {
         User user = new User();
         user.setLogin(userDTO.getLogin());
         user.setPassword(userDTO.getPassword());
         user.setEmail(userDTO.getEmail());
-        user = userDao.addUser(user);
-        userDao.addUserDetails(user.getId());
-        return user;
+        user.setRole(Role.USER);
+        user.setStatus(Status.VERIFY);
+        user.setUserDetails(new UserDetails());
+        return userDao.addUser(user);
     }
 
     @Override
