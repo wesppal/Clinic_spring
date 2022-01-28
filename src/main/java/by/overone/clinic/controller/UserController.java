@@ -3,8 +3,6 @@ package by.overone.clinic.controller;
 import by.overone.clinic.dto.user.UserDTO;
 import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.dto.user.UserRegistrationDTO;
-import by.overone.clinic.exception.EntityNotFoundException;
-import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.Pet;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
@@ -27,8 +25,12 @@ public class UserController {
     private final PetService petService;
 
     @GetMapping
-    public List<UserDTO> readAll() {
-        return userService.getAllUsers();
+    public List<UserDTO> readAll(@RequestParam(value = "name", required = false) String name,
+                                 @RequestParam(value = "surname", required = false) String surname) {
+        if ((name == null) && (surname == null)) {
+            return userService.getAllUsers();
+        }
+        return userService.getUserByFullName(name, surname);
     }
 
     @GetMapping("/{id}")
@@ -36,11 +38,6 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/")
-    public List<UserDTO> readUser(@RequestParam(value = "name", required = false) String name,
-                                  @RequestParam(value = "surname", required = false) String surname) {
-        return userService.getUserByFullName(name, surname);
-    }
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,19 +46,17 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}/")
-    public UserInfoDTO removeUser(@PathVariable long id) {
-        UserInfoDTO user = userService.removeUserById(id);
+    public UserDetails removeUser(@PathVariable long id) {
+        UserDetails user = userService.removeUserById(id);
         return user;
     }
-
-
     @PatchMapping("/{id}/info")
     public UserDetails updateDetailUser(@PathVariable long id, @Validated @RequestBody UserDetails userDetails) {
-return null;
+        return null;
     }
 
     @GetMapping("/{id}/info")
-    public UserInfoDTO readInfoUser(@Validated @Min(1) @PathVariable long id) {
+    public UserDetails readInfoUser(@Validated @Min(1) @PathVariable long id) {
         return userService.getUserDetails(id);
     }
 
@@ -71,7 +66,7 @@ return null;
     }
 
     @GetMapping("/{id}/verify")
-    public UserInfoDTO verifyUser(@PathVariable long id) {
+    public UserDetails verifyUser(@PathVariable long id) {
         return userService.verifyUser(id);
     }
 }

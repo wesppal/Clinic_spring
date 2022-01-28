@@ -11,17 +11,15 @@ import java.util.Optional;
 public interface UserDao {
     List<User> getAllUsers();
 
-    Optional<User> getUserById(long id);
+    User getUserById(long id);
 
     List<User> getUserByNameSurname(String name, String surname);
 
     User addUser(User user);
 
-    void addUserDetails(long id);
-
     void updateStatus(long id, Status stat);
 
     UserDetails updateUserDetails(UserDetails userDetail);
 
-    Optional<UserInfoDTO> getUserDetails(long id);
+    UserDetails getUserDetails(long id);
 }

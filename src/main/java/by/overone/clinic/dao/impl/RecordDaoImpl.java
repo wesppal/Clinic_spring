@@ -2,6 +2,7 @@ package by.overone.clinic.dao.impl;
 
 import by.overone.clinic.dao.RecordDao;
 import by.overone.clinic.model.Record;
+import by.overone.clinic.util.RecordStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -32,7 +33,7 @@ public class RecordDaoImpl implements RecordDao {
         record.setVisit_comment("Will be added after.");
         record.setDoctor_id(4);
         record.setPet_id(3);
-        record.setStatus("recorded");
+        record.setStatus(RecordStatus.RECORDED);
         jdbcTemplate.update(ADD_RECORD_SQL,record.getRecord_data(),record.getAdmission_data(),
                 record.getVisit_comment(),record.getPet_id(),record.getDoctor_id());
         return record;

@@ -39,10 +39,10 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet updatePet(Pet pet) {
-        petDao.getPetById(pet.getPet_id())
+        petDao.getPetById(pet.getPetId())
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
         petDao.updatePet(pet);
-        return petDao.getPetById(pet.getPet_id())
+        return petDao.getPetById(pet.getPetId())
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
     }
 
@@ -55,8 +55,8 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<Pet> getPetByUserId(long user_id) {
-        userDao.getUserById(user_id)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
+        userDao.getUserById(user_id);
+//                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
         List<Pet> pets = petDao.getPetByUserId(user_id);
         if (pets.size() < 1) {
             throw new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PETS_BY_USER.getErrorCode());

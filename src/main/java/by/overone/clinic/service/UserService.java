@@ -1,7 +1,6 @@
 package by.overone.clinic.service;
 
 import by.overone.clinic.dto.user.UserDTO;
-import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.dto.user.UserRegistrationDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
@@ -17,11 +16,11 @@ public interface UserService {
 
     User addUser(UserRegistrationDTO user);
 
-    UserInfoDTO removeUserById(long id);
+    UserDetails removeUserById(long id);
 
     UserDetails updateUserDetails(UserDetails userDetail);
 
-    UserInfoDTO getUserDetails(long id);
+    UserDetails getUserDetails(long id);
 
-    UserInfoDTO verifyUser(long id);
+    UserDetails verifyUser(long id);
 }

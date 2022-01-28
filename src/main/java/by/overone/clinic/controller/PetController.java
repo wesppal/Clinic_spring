@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/pets")
 public class PetController {
 
-//    private final PetService petService;
+    private final PetService petService;
 //
 //    @GetMapping
 //    public List<Pet> readAll() {
@@ -27,11 +27,11 @@ public class PetController {
 //        return petService.getPetById(id);
 //    }
 //
-//    @PostMapping("/")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Pet addPet(@RequestBody Pet pet) {
-//        return petService.addPet(pet);
-//    }
+    @PostMapping("/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Pet addPet(@RequestBody Pet pet) {
+        return petService.addPet(pet);
+    }
 //
 //    @PatchMapping("/{id}")
 //    public Pet updatePet(@PathVariable long id, @RequestBody Pet pet) {

@@ -7,9 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
-//@Table(name = "user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,14 +17,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotNull
     @Column(unique = true)
     private String login;
+    @NotNull
     @Column(nullable = false)
     private String password;
+    @NotNull
     @Column(unique = true)
     private String email;
+    @NotNull
     @Enumerated(value = EnumType.STRING)
     private Role role;
+    @NotNull
     @Enumerated(value = EnumType.STRING)
     private Status status;
     @JoinColumn(name = "detail_id")

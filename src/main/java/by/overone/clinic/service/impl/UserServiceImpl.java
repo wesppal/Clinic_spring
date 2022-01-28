@@ -2,7 +2,6 @@ package by.overone.clinic.service.impl;
 
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.user.UserDTO;
-import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.dto.user.UserRegistrationDTO;
 import by.overone.clinic.exception.EntityNotFoundException;
 import by.overone.clinic.exception.ExceptionCode;
@@ -35,8 +34,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserById(long id) {
-        User user = userDao.getUserById(id)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
+        User user = userDao.getUserById(id);
+//                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
         return modelMapper.map(user, UserDTO.class);
     }
 
@@ -64,9 +63,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInfoDTO removeUserById(long id) {
-        UserInfoDTO user = userDao.getUserDetails(id)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
+    public UserDetails removeUserById(long id) {
+        UserDetails user = userDao.getUserDetails(id);
+//                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
         userDao.updateStatus(id, Status.DELETED);
         return user;
     }
@@ -78,15 +77,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInfoDTO getUserDetails(long id) {
-        return userDao.getUserDetails(id)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
+    public UserDetails getUserDetails(long id) {
+        return userDao.getUserDetails(id);
+//                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
     }
 
     @Override
-    public UserInfoDTO verifyUser(long id) {
+    public UserDetails verifyUser(long id) {
         userDao.updateStatus(id, Status.ACTIVE);
-        return userDao.getUserDetails(id)
-                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
+        return userDao.getUserDetails(id);
+//                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
     }
 }
