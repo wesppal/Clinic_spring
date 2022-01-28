@@ -1,6 +1,7 @@
 package by.overone.clinic.controller;
 
 import by.overone.clinic.dto.user.UserDTO;
+import by.overone.clinic.dto.user.UserDetailsDTO;
 import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.dto.user.UserRegistrationDTO;
 import by.overone.clinic.exception.EntityNotFoundException;
@@ -27,8 +28,12 @@ public class UserController {
     private final PetService petService;
 
     @GetMapping
-    public List<UserDTO> readAll() {
-        return userService.getAllUsers();
+    public List<UserDTO> readAll(@RequestParam(value = "name", required = false) String name,
+                                 @RequestParam(value = "surname", required = false) String surname) {
+        if ((name == null) && (surname == null)) {
+            return userService.getAllUsers();
+        }
+        return userService.getUserByFullName(name, surname);
     }
 
     @GetMapping("/{id}")
@@ -36,19 +41,15 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/")
-    public List<UserDTO> readUser(@RequestParam(value = "name", required = false) String name,
-                                  @RequestParam(value = "surname", required = false) String surname) {
-        return userService.getUserByFullName(name, surname);
-    }
 
-    @PostMapping("/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User addUser(@Validated @RequestBody UserRegistrationDTO userRegistrationDTO) {
         return userService.addUser(userRegistrationDTO);
     }
 
-    @DeleteMapping("/{id}/")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public UserInfoDTO removeUser(@PathVariable long id) {
         UserInfoDTO user = userService.removeUserById(id);
         return user;

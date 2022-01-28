@@ -1,6 +1,7 @@
 package by.overone.clinic.dao.impl;
 
 import by.overone.clinic.dao.UserDao;
+import by.overone.clinic.dto.user.UserDetailsDTO;
 import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
@@ -109,6 +110,7 @@ public class UserDaoImpl implements UserDao {
     public UserDetails updateUserDetails(UserDetails userDetail) {
         jdbcTemplate.update(UPDATE_USER_DETAILS_SQL, userDetail.getName(), userDetail.getSurname(),
                 userDetail.getAddress(), userDetail.getPhoneNumber(), userDetail.getUser_id());
+
         return userDetail;
     }
 
