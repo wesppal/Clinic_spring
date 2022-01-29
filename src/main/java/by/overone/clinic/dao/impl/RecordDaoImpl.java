@@ -39,10 +39,6 @@ public class RecordDaoImpl implements RecordDao {
         }
         petDao.getPetById(record.getPet_id())
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
-//        LocalDateTime record_date = LocalDateTime.now();
-//        LocalDateTime admission_date = LocalDateTime.of(2022, 0, 5, 15, 30);
-//        record.setRecord_data(record_date);
-//        record.setAdmission_data(admission_date);
         record.setVisit_comment("Will be added after.");
         record.setStatus("recorded");
         jdbcTemplate.update(ADD_RECORD_SQL, record.getRecord_date(), record.getAdmission_date(),

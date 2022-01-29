@@ -22,7 +22,9 @@ import java.util.stream.Collectors;
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
-    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
+                                                                         HttpHeaders headers, HttpStatus status,
+                                                                         WebRequest request) {
         ExceptionResponse response = new ExceptionResponse();
         response.setException(ex.getClass().getSimpleName());
         response.setMessage("Not allowed.");
@@ -30,9 +32,15 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<ExceptionResponse> list = ex.getBindingResult().getFieldErrors().stream()
-                .map(error -> new ExceptionResponse(error.getField()+" "+error.getDefaultMessage(),null,null)).collect(Collectors.toList());
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers, HttpStatus status,
+                                                                  WebRequest request) {
+        List<ExceptionResponse> list = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> new ExceptionResponse(error.getField() + " " + error.getDefaultMessage(),
+                        null, null))
+                .collect(Collectors.toList());
         return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
     }
 
