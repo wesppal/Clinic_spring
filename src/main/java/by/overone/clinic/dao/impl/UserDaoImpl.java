@@ -1,7 +1,6 @@
 package by.overone.clinic.dao.impl;
 
 import by.overone.clinic.dao.UserDao;
-import by.overone.clinic.dto.user.UserDetailsDTO;
 import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
@@ -66,22 +65,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getUserByNameSurname(String name, String surname) {
-        String param = "";
-        if (name != null) {
-            param += " where " + UserDetailConst.NAME + " = ?";
-            if (surname != null) {
-                param += " AND " + UserDetailConst.SURNAME + " = ?";
-                return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{name, surname},
-                        new BeanPropertyRowMapper<>(User.class));
-            }
-            return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{name},
-                    new BeanPropertyRowMapper<>(User.class));
-        }
-        if (surname != null) {
-            param += " where " + UserDetailConst.SURNAME + " = ?";
-            return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{surname},
-                    new BeanPropertyRowMapper<>(User.class));
-        }
+        String param = builderSqlRequest(name, surname);
         return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{},
                 new BeanPropertyRowMapper<>(User.class));
     }
@@ -118,5 +102,24 @@ public class UserDaoImpl implements UserDao {
     public Optional<UserInfoDTO> getUserDetails(long id) {
         return jdbcTemplate.query(GET_ALL_INFO_USER_BY_ID_SQL, new Object[]{id},
                 new BeanPropertyRowMapper<>(UserInfoDTO.class)).stream().findAny();
+    }
+
+
+    private String builderSqlRequest(String name, String surname) {
+        String param = "";
+        if ((name != null) || (surname != null)) {
+            param += " WHERE ";
+        }
+        if (name != null) {
+            param += UserDetailConst.NAME + " = '" + name + "'";
+            if (surname != null) {
+                param += " AND " + UserDetailConst.SURNAME + " = '" + surname + "'";
+                return param;
+            }
+        }
+        if (surname != null) {
+            param += UserDetailConst.SURNAME + " = '" + surname + "'";
+        }
+        return param;
     }
 }
