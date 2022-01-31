@@ -76,11 +76,4 @@ public class WebConfig implements WebMvcConfigurer {
         return new UserServiceImpl(userDao,modelMapper);
     }
 
-    @Bean
-    public ViewResolver internalResourceViewResolver(){
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/view/");
-        resolver.setSuffix(".jsp");
-        return resolver;
-    }
 }

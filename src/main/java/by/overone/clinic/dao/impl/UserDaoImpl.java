@@ -22,12 +22,12 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class UserDaoImpl implements UserDao {
-    private static String status = Status.ACTIVE.toString();
+    private static String status = Status.DELETED.toString();
 
     private final static String GET_ALL_USERS_SQL = "SELECT * FROM " + UserConst.TABLE_NAME +
-            " WHERE " + UserConst.STATUS + " = '" + status + "'";
+            " WHERE " + UserConst.STATUS + " != '" + status + "'";
     private final static String GET_USER_BY_ID_SQL = "SELECT * FROM " + UserConst.TABLE_NAME +
-            " WHERE " + UserConst.ID + "=? AND " + UserConst.STATUS + " = '" + status + "'";
+            " WHERE " + UserConst.ID + "=? AND " + UserConst.STATUS + " != '" + status + "'";
     private final static String GET_USER_BY_NAME_SURNAME_SQL = "SELECT * FROM " + UserConst.TABLE_NAME +
             " JOIN " + UserDetailConst.TABLE_NAME + " on " + UserDetailConst.ID + "=" + UserConst.ID;
     private final static String ADD_ID_BY_DETAIL_SQL = "INSERT INTO " + UserDetailConst.TABLE_NAME +

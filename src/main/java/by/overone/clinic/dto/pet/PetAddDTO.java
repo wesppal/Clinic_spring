@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PetAddDTO {
     private String name;
-    private String owner;
+    private String type_of_pet;
     private long user_id;
 }

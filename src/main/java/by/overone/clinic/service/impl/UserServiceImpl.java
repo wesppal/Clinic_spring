@@ -2,7 +2,6 @@ package by.overone.clinic.service.impl;
 
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.user.UserDTO;
-import by.overone.clinic.dto.user.UserDetailsDTO;
 import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.dto.user.UserRegistrationDTO;
 import by.overone.clinic.exception.EntityNotFoundException;
