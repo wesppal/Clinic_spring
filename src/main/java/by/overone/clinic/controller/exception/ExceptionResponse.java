@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExceptionResponse{
+public class ExceptionResponse {
 
-private String message;
-private String exception;
-private String errorCode;
+    private String message;
+    private String exception;
+    private String errorCode;
 }

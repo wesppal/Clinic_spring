@@ -29,7 +29,7 @@ public class RecordController {
             return null;
         }
         List<Record> records = recordDao.getAllRecords();
-        Record rec = records.stream().filter(r -> r.getAdmission_date().compareTo(record.getAdmission_date())==0).findAny()
+        Record rec = records.stream().filter(r -> r.getAdmission_date().compareTo(record.getAdmission_date()) == 0).findAny()
                 .orElse(null);
         if (rec != null) {
             System.out.println("time atata");

@@ -72,8 +72,8 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public UserService userService(UserDao userDao, ModelMapper modelMapper){
-        return new UserServiceImpl(userDao,modelMapper);
+    public UserService userService(UserDao userDao, ModelMapper modelMapper) {
+        return new UserServiceImpl(userDao, modelMapper);
     }
 
 }
