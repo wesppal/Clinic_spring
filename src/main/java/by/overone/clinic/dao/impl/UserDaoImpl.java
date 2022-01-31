@@ -72,8 +72,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User addUser(User user) {
-        user.setRole(Role.USER.toString());
-        user.setStatus(Status.VERIFY.toString());
+        user.setRole(Role.USER);
+        user.setStatus(Status.VERIFY);
         Number id = simpleJdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(user));
         user.setId(id.longValue());
         return user;

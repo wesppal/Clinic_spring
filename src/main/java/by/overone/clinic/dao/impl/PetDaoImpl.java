@@ -57,7 +57,7 @@ public class PetDaoImpl implements PetDao {
 
     @Override
     public Pet addPet(Pet pet) {
-        pet.setStatus(Status.VERIFY.toString());
+        pet.setStatus(Status.VERIFY);
         Number id = simpleJdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(pet));
         pet.setPet_id(id.longValue());
         return pet;

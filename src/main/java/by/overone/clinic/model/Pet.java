@@ -1,5 +1,6 @@
 package by.overone.clinic.model;
 
+import by.overone.clinic.util.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,5 @@ public class Pet {
         private Integer age;
         private String type_of_pet;
         private long user_id;
-        private String status;
+        private Status status;
 }

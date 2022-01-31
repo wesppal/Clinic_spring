@@ -1,5 +1,7 @@
 package by.overone.clinic.model;
 
+import by.overone.clinic.util.Role;
+import by.overone.clinic.util.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,6 @@ public class User {
     private String login;
     private String password;
     private String email;
-    private String role;
-    private String status;
+    private Role role;
+    private Status status;
 }
