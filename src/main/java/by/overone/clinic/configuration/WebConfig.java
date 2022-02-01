@@ -76,10 +76,4 @@ public class WebConfig implements WebMvcConfigurer {
         dataSourceTransactionManager.setDataSource(dataSource);
         return dataSourceTransactionManager;
     }
-
-    @Bean
-    public UserService userService(UserDao userDao, ModelMapper modelMapper) {
-        return new UserServiceImpl(userDao, modelMapper);
-    }
-
 }
