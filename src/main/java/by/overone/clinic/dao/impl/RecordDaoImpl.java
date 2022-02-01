@@ -32,12 +32,12 @@ public class RecordDaoImpl implements RecordDao {
     private final UserDao userDao;
     private final PetDao petDao;
 
-    private final static String ADD_RECORD_SQL = "INSERT INTO medical_card VALUES (0,?,?,?,?,?,?)";
-    private final static String GET_ALL_RECORD_SQL = "SELECT * from medical_card";
+    private final static String GET_RECORDS_BY_PET_ID_SQL = "SELECT * medical_card WHERE pet_id = ?";
+    private final static String GET_ALL_RECORDS_SQL = "SELECT * from medical_card";
 
     @Override
     public List<Record> getAllRecords() {
-        return jdbcTemplate.query(GET_ALL_RECORD_SQL, new BeanPropertyRowMapper<>(Record.class));
+        return jdbcTemplate.query(GET_ALL_RECORDS_SQL, new BeanPropertyRowMapper<>(Record.class));
     }
 
     @Override
