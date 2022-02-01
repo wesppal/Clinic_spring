@@ -9,7 +9,7 @@ public interface RecordDao {
 
     Record addRecord(Record record);
 
-    List<Record> getRecordByPet();
+    List<Record> getRecordsByPet(long id);
 
     List<Record> getRecordByDoctor();
 }

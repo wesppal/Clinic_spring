@@ -1,8 +1,10 @@
 package by.overone.clinic.controller;
 
+import by.overone.clinic.dao.RecordDao;
 import by.overone.clinic.exception.EntityNotFoundException;
 import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.Pet;
+import by.overone.clinic.model.Record;
 import by.overone.clinic.service.PetService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import java.util.List;
 public class PetController {
 
     private final PetService petService;
+    private final RecordDao recordDao;
 
     @GetMapping
     public List<Pet> readAll() {
@@ -53,6 +56,11 @@ public class PetController {
     @GetMapping("/{id}/verify")
     public Pet verifyPet(@PathVariable long id) {
         return petService.verifyPet(id);
+    }
+
+    @GetMapping("/{id}/records")
+    public List<Record> getRecords(@PathVariable long id) {
+        return recordDao.getRecordsByPet(id);
     }
 }
 

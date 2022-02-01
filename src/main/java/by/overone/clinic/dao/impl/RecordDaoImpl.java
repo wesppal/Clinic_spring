@@ -32,7 +32,7 @@ public class RecordDaoImpl implements RecordDao {
     private final UserDao userDao;
     private final PetDao petDao;
 
-    private final static String GET_RECORDS_BY_PET_ID_SQL = "SELECT * medical_card WHERE pet_id = ?";
+    private final static String GET_RECORDS_BY_PET_ID_SQL = "SELECT * from medical_card WHERE pet_id=?";
     private final static String GET_ALL_RECORDS_SQL = "SELECT * from medical_card";
 
     @Override
@@ -59,8 +59,9 @@ public class RecordDaoImpl implements RecordDao {
     }
 
     @Override
-    public List<Record> getRecordByPet() {
-        return null;
+    public List<Record> getRecordsByPet(long id) {
+        petDao.getPetById(id);
+        return jdbcTemplate.query(GET_RECORDS_BY_PET_ID_SQL, new BeanPropertyRowMapper<>(Record.class), id);
     }
 
     @Override
