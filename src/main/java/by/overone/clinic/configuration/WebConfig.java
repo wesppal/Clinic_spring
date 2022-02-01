@@ -4,6 +4,7 @@ import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.service.UserService;
 import by.overone.clinic.service.impl.UserServiceImpl;
 import by.overone.clinic.util.PetConst;
+import by.overone.clinic.util.RecordConst;
 import by.overone.clinic.util.UserConst;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -56,8 +57,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean(name = "record")
     public SimpleJdbcInsert simpleJdbcInsertRecord(JdbcTemplate jdbcTemplate) {
-        return new SimpleJdbcInsert(jdbcTemplate).withTableName(PetConst.TABLE_NAME)
-                .usingGeneratedKeyColumns(PetConst.ID);
+        return new SimpleJdbcInsert(jdbcTemplate).withTableName(RecordConst.TABLE_NAME)
+                .usingGeneratedKeyColumns(RecordConst.ID);
     }
 
     @Bean

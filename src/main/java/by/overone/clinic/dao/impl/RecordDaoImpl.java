@@ -10,8 +10,12 @@ import by.overone.clinic.model.User;
 import by.overone.clinic.util.RecordStatus;
 import by.overone.clinic.util.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,8 +26,12 @@ import java.util.Locale;
 public class RecordDaoImpl implements RecordDao {
 
     private final JdbcTemplate jdbcTemplate;
+    @Autowired
+    @Qualifier("record")
+    private SimpleJdbcInsert simpleJdbcInsert;
     private final UserDao userDao;
     private final PetDao petDao;
+
     private final static String ADD_RECORD_SQL = "INSERT INTO medical_card VALUES (0,?,?,?,?,?,?)";
     private final static String GET_ALL_RECORD_SQL = "SELECT * from medical_card";
 
@@ -45,8 +53,8 @@ public class RecordDaoImpl implements RecordDao {
         record.setVisit_comment("The pet is " + record.getStatus().toString().toLowerCase(Locale.ROOT)
                 + " on time: " + record.getAdmission_date().toString().replace('T',' '));
 
-        jdbcTemplate.update(ADD_RECORD_SQL, record.getRecord_date(), record.getAdmission_date(),
-                record.getVisit_comment(), record.getPet_id(), record.getDoctor_id(), record.getStatus().toString());
+        Number id = simpleJdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(record));
+        record.setRecord_id(id.longValue());
         return record;
     }
 
