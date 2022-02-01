@@ -11,5 +11,5 @@ public interface RecordDao {
 
     List<Record> getRecordsByPet(long id);
 
-    List<Record> getRecordByDoctor();
+    List<Record> getRecordByDoctor(long id);
 }

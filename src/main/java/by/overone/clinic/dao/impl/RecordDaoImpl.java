@@ -33,6 +33,7 @@ public class RecordDaoImpl implements RecordDao {
     private final PetDao petDao;
 
     private final static String GET_RECORDS_BY_PET_ID_SQL = "SELECT * from medical_card WHERE pet_id=?";
+    private final static String GET_RECORDS_BY_DOCTOR_ID_SQL = "SELECT * from medical_card WHERE doctor_id=?";
     private final static String GET_ALL_RECORDS_SQL = "SELECT * from medical_card";
 
     @Override
@@ -65,7 +66,12 @@ public class RecordDaoImpl implements RecordDao {
     }
 
     @Override
-    public List<Record> getRecordByDoctor() {
-        return null;
+    public List<Record> getRecordByDoctor(long id) {
+        User doctor = userDao.getUserById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
+        if (!doctor.getRole().equals(Role.DOCTOR)) {
+            throw new EntityNotFoundException(ExceptionCode.NOT_EXISTING_DOCTOR.getErrorCode());
+        }
+        return jdbcTemplate.query(GET_RECORDS_BY_DOCTOR_ID_SQL, new BeanPropertyRowMapper<>(Record.class), id);
     }
 }
