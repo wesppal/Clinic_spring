@@ -27,7 +27,7 @@ public class PetController {
         return petService.getPetById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Pet addPet(@RequestBody Pet pet) {
         return petService.addPet(pet);
@@ -45,7 +45,7 @@ public class PetController {
         }
     }
 
-    @DeleteMapping("/{id}/")
+    @DeleteMapping("/{id}")
     public Pet removePet(@PathVariable long id) {
         return petService.removePetById(id);
     }

@@ -15,7 +15,7 @@ public interface PetDao {
 
     void updatePet(Pet pet);
 
-    void updateStatus(long id, Enum<Status> status);
+    void updateStatus(long id, Status status);
 
     List<Pet> getPetByUserId(long user_id);
 }

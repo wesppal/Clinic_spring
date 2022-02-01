@@ -59,15 +59,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> getUserById(long id) {
-        return jdbcTemplate.query(GET_USER_BY_ID_SQL, new Object[]{id},
-                new BeanPropertyRowMapper<>(User.class)).stream().findAny();
+        return jdbcTemplate.query(GET_USER_BY_ID_SQL, new BeanPropertyRowMapper<>(User.class), id).stream().findAny();
     }
 
     @Override
     public List<User> getUserByNameSurname(String name, String surname) {
-        String param = builderSqlRequest(name, surname);
-        return jdbcTemplate.query(GET_USER_BY_NAME_SURNAME_SQL + param, new Object[]{},
-                new BeanPropertyRowMapper<>(User.class));
+        String param = GET_USER_BY_NAME_SURNAME_SQL + builderSqlRequest(name, surname);
+        return jdbcTemplate.query(param, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
@@ -100,8 +98,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<UserInfoDTO> getUserDetails(long id) {
-        return jdbcTemplate.query(GET_ALL_INFO_USER_BY_ID_SQL, new Object[]{id},
-                new BeanPropertyRowMapper<>(UserInfoDTO.class)).stream().findAny();
+        return jdbcTemplate.query(GET_ALL_INFO_USER_BY_ID_SQL,
+                new BeanPropertyRowMapper<>(UserInfoDTO.class), id).stream().findAny();
     }
 
 

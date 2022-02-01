@@ -7,6 +7,7 @@ import by.overone.clinic.exception.EntityNotFoundException;
 import by.overone.clinic.exception.ExceptionCode;
 import by.overone.clinic.model.Record;
 import by.overone.clinic.model.User;
+import by.overone.clinic.util.RecordStatus;
 import by.overone.clinic.util.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -14,6 +15,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Locale;
 
 @Repository
 @RequiredArgsConstructor
@@ -34,15 +36,17 @@ public class RecordDaoImpl implements RecordDao {
     public Record addRecord(Record record) {
         User doctor = userDao.getUserById(record.getDoctor_id())
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
-        if (!doctor.getRole().equals(Role.DOCTOR.toString())) {
+        if (!doctor.getRole().equals(Role.DOCTOR)) {
             throw new EntityNotFoundException(ExceptionCode.NOT_EXISTING_DOCTOR.getErrorCode());
         }
         petDao.getPetById(record.getPet_id())
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
-        record.setVisit_comment("Will be added after.");
-        record.setStatus("recorded");
+        record.setStatus(RecordStatus.RECORDED);
+        record.setVisit_comment("The pet is " + record.getStatus().toString().toLowerCase(Locale.ROOT)
+                + " on time: " + record.getAdmission_date().toString().replace('T',' '));
+
         jdbcTemplate.update(ADD_RECORD_SQL, record.getRecord_date(), record.getAdmission_date(),
-                record.getVisit_comment(), record.getPet_id(), record.getDoctor_id(), record.getStatus());
+                record.getVisit_comment(), record.getPet_id(), record.getDoctor_id(), record.getStatus().toString());
         return record;
     }
 
@@ -52,7 +56,7 @@ public class RecordDaoImpl implements RecordDao {
     }
 
     @Override
-    public List<Record> getRecordByUser() {
+    public List<Record> getRecordByDoctor() {
         return null;
     }
 }

@@ -54,6 +54,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .usingGeneratedKeyColumns(PetConst.ID);
     }
 
+    @Bean(name = "record")
+    public SimpleJdbcInsert simpleJdbcInsertRecord(JdbcTemplate jdbcTemplate) {
+        return new SimpleJdbcInsert(jdbcTemplate).withTableName(PetConst.TABLE_NAME)
+                .usingGeneratedKeyColumns(PetConst.ID);
+    }
+
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();

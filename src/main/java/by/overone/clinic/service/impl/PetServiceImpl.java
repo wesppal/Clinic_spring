@@ -10,6 +10,7 @@ import by.overone.clinic.util.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,7 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<Pet> getPets() {
-        return petDao.getPets().stream().collect(Collectors.toList());
+        return new ArrayList<>(petDao.getPets());
     }
 
     @Override

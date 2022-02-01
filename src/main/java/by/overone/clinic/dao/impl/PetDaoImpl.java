@@ -51,8 +51,7 @@ public class PetDaoImpl implements PetDao {
 
     @Override
     public Optional<Pet> getPetById(long id) {
-        return jdbcTemplate.query(GET_PET_BY_ID_SQL, new Object[]{id},
-                new BeanPropertyRowMapper<>(Pet.class)).stream().findAny();
+        return jdbcTemplate.query(GET_PET_BY_ID_SQL, new BeanPropertyRowMapper<>(Pet.class), id).stream().findAny();
     }
 
     @Override
@@ -70,7 +69,7 @@ public class PetDaoImpl implements PetDao {
     }
 
     @Override
-    public void updateStatus(long id, Enum<Status> status) {
+    public void updateStatus(long id, Status status) {
         jdbcTemplate.update(UPDATE_PET_STATUS_SQL, status.toString(), id);
     }
 
@@ -78,7 +77,6 @@ public class PetDaoImpl implements PetDao {
     @Override
     public List<Pet> getPetByUserId(long user_id) {
         userDao.getUserById(user_id);
-        return jdbcTemplate.query(GET_PETS_BY_USER_ID_SQL, new Object[]{user_id},
-                new BeanPropertyRowMapper<>(Pet.class));
+        return jdbcTemplate.query(GET_PETS_BY_USER_ID_SQL, new BeanPropertyRowMapper<>(Pet.class), user_id);
     }
 }
