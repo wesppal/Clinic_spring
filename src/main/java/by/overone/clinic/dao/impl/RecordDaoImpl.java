@@ -52,7 +52,7 @@ public class RecordDaoImpl implements RecordDao {
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
         record.setStatus(RecordStatus.RECORDED);
         record.setVisit_comment("The pet is " + record.getStatus().toString().toLowerCase(Locale.ROOT)
-                + " on time: " + record.getAdmission_date().toString().replace('T',' '));
+                + " on time: " + record.getAdmission_date().toString().replace('T', ' '));
 
         Number id = simpleJdbcInsert.executeAndReturnKey(new BeanPropertySqlParameterSource(record));
         record.setRecord_id(id.longValue());

@@ -1,15 +1,15 @@
 package by.overone.clinic.service;
 
-import by.overone.clinic.model.Record;
+import by.overone.clinic.dto.rec.RecordDTO;
 
 import java.util.List;
 
 public interface RecordService {
-    List<Record> getAllRecords();
+    List<RecordDTO> getAllRecords();
 
-    Record addRecord(Record record);
+    RecordDTO addRecord(RecordDTO record);
 
-    List<Record> getRecordsByPet(long id);
+    List<RecordDTO> getRecordsByPet(long id);
 
-    List<Record> getRecordByDoctor(long id);
+    List<RecordDTO> getRecordByDoctor(long id);
 }

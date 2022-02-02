@@ -1,7 +1,9 @@
 package by.overone.clinic.controller;
 
 import by.overone.clinic.dao.RecordDao;
+import by.overone.clinic.dto.rec.RecordDTO;
 import by.overone.clinic.model.Record;
+import by.overone.clinic.service.RecordService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/records")
 public class RecordController {
     private final RecordDao recordDao;
+    private final RecordService recordService;
 
 
     @PostMapping
@@ -41,7 +44,7 @@ public class RecordController {
     }
 
     @GetMapping
-    public List<Record> getRecords() {
-        return recordDao.getAllRecords();
+    public List<RecordDTO> getRecords() {
+        return recordService.getAllRecords();
     }
 }
