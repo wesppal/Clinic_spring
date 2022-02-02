@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 
 public class RecordDTO {
-    private long record_id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime record_date;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")

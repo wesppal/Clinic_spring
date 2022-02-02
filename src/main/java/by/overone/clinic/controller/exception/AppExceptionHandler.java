@@ -1,6 +1,7 @@
 package by.overone.clinic.controller.exception;
 
 import by.overone.clinic.exception.EntityNotFoundException;
+import by.overone.clinic.exception.FaultInDateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -94,5 +95,28 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         response.setErrorCode("51");
         response.setMessage("BD exception");
         return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
+    }
+
+    @ExceptionHandler(FaultInDateException.class)
+    public ResponseEntity<ExceptionResponse> dateFaultHandler(FaultInDateException e) {
+        log.error("Not found exception: ", e);
+        ExceptionResponse response = new ExceptionResponse();
+        response.setException(e.getClass().getSimpleName());
+        response.setErrorCode(e.getMessage());
+        String message = "";
+        switch (e.getMessage()) {
+            case "3001":
+                message = "Hours in admission_date must be more than or equal 8 and less than 17.";
+                break;
+            case "3002":
+                message = "Minutes in admission_date must be equal to 0 or 30.";
+                break;
+            case "3003":
+                message = "This time is already being used.";
+                break;
+
+        }
+        response.setMessage(message);
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }
