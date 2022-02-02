@@ -3,6 +3,7 @@ package by.overone.clinic.controller.exception;
 import by.overone.clinic.exception.EntityNotFoundException;
 import by.overone.clinic.exception.FaultInDateException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,15 @@ import java.util.stream.Collectors;
 @Slf4j
 @ControllerAdvice
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @Override
+    protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers,
+                                                        HttpStatus status, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse();
+        response.setException(ex.getClass().getSimpleName());
+        response.setMessage("The String in path, there must be a number greater than or equal to 1");
+        return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
+    }
 
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
