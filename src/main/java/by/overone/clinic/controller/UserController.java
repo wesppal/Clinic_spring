@@ -1,6 +1,7 @@
 package by.overone.clinic.controller;
 
 import by.overone.clinic.dto.user.UserDTO;
+import by.overone.clinic.dto.user.UserDetailsDTO;
 import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.dto.user.UserRegistrationDTO;
 import by.overone.clinic.exception.EntityNotFoundException;
@@ -56,12 +57,12 @@ public class UserController {
 
 
     @PatchMapping("/{id}/info")
-    public UserDetails updateDetailUser(@PathVariable long id, @Validated @RequestBody UserDetails userDetails) {
+    public UserDetailsDTO updateDetailUser(@PathVariable long id, @Validated @RequestBody UserDetailsDTO userDetails) {
         if (userDetails.getUser_id() == 0) {
             userDetails.setUser_id(id);
         }
         if (userDetails.getUser_id() == id) {
-            UserDetails user = userService.updateUserDetails(userDetails);
+            UserDetailsDTO user = userService.updateUserDetails(userDetails);
             return user;
         } else {
             throw new EntityNotFoundException(ExceptionCode.NOT_MISMATCH_USER_ID.getErrorCode());

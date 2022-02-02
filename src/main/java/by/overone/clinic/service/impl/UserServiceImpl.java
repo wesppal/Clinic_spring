@@ -2,6 +2,7 @@ package by.overone.clinic.service.impl;
 
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.user.UserDTO;
+import by.overone.clinic.dto.user.UserDetailsDTO;
 import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.dto.user.UserRegistrationDTO;
 import by.overone.clinic.exception.EntityNotFoundException;
@@ -12,6 +13,7 @@ import by.overone.clinic.service.UserService;
 import by.overone.clinic.util.Status;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,8 +71,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails updateUserDetails(UserDetails userDetail) {
-        userDao.updateUserDetails(userDetail);
+    public UserDetailsDTO updateUserDetails(UserDetailsDTO userDetail) {
+                userDao.updateUserDetails(modelMapper.map(userDetail, UserDetails.class));
         return userDetail;
     }
 

@@ -1,9 +1,11 @@
 package by.overone.clinic.dto.user;
 
-
+import lombok.Data;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
+
+@Data
 public class UserDetailsDTO {
     @Min(1)
     private long user_id;
