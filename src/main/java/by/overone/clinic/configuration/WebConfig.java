@@ -1,11 +1,8 @@
 package by.overone.clinic.configuration;
 
-import by.overone.clinic.dao.UserDao;
-import by.overone.clinic.service.UserService;
-import by.overone.clinic.service.impl.UserServiceImpl;
-import by.overone.clinic.util.PetConst;
-import by.overone.clinic.util.RecordConst;
-import by.overone.clinic.util.UserConst;
+import by.overone.clinic.util.constants.PetConst;
+import by.overone.clinic.util.constants.RecordConst;
+import by.overone.clinic.util.constants.UserConst;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.modelmapper.ModelMapper;
@@ -18,10 +15,8 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
 

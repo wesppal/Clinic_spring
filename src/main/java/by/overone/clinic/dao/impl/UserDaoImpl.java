@@ -5,6 +5,8 @@ import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.util.*;
+import by.overone.clinic.util.constants.UserConst;
+import by.overone.clinic.util.constants.UserDetailConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

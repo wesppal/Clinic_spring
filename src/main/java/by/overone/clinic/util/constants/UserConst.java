@@ -1,4 +1,4 @@
-package by.overone.clinic.util;
+package by.overone.clinic.util.constants;
 
 public class UserConst {
     public static final String ID = "id";

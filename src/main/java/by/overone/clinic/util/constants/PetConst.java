@@ -1,4 +1,4 @@
-package by.overone.clinic.util;
+package by.overone.clinic.util.constants;
 
 public class PetConst {
     public static final String ID = "pet_id";

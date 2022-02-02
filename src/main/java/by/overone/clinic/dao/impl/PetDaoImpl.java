@@ -3,7 +3,7 @@ package by.overone.clinic.dao.impl;
 import by.overone.clinic.dao.PetDao;
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.model.Pet;
-import by.overone.clinic.util.PetConst;
+import by.overone.clinic.util.constants.PetConst;
 import by.overone.clinic.util.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
