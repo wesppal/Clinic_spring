@@ -1,9 +1,11 @@
 package by.overone.clinic.controller;
 
 import by.overone.clinic.dao.RecordDao;
+import by.overone.clinic.dto.rec.RecordDTO;
 import by.overone.clinic.model.Pet;
 import by.overone.clinic.model.Record;
 import by.overone.clinic.service.PetService;
+import by.overone.clinic.service.RecordService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +18,7 @@ import java.util.List;
 public class PetController {
 
     private final PetService petService;
-    private final RecordDao recordDao;
+    private final RecordService recordService;
 
     @GetMapping
     public List<Pet> readAll() {
@@ -51,8 +53,8 @@ public class PetController {
     }
 
     @GetMapping("/{id}/records")
-    public List<Record> getRecords(@PathVariable long id) {
-        return recordDao.getRecordsByPet(id);
+    public List<RecordDTO> getRecords(@PathVariable long id) {
+        return recordService.getRecordsByPet(id);
     }
 }
 

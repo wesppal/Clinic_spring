@@ -1,10 +1,9 @@
 package by.overone.clinic.controller;
 
 import by.overone.clinic.dao.RecordDao;
-import by.overone.clinic.dto.user.UserDTO;
+import by.overone.clinic.dto.rec.RecordDTO;
 import by.overone.clinic.model.Record;
-import by.overone.clinic.service.PetService;
-import by.overone.clinic.service.UserService;
+import by.overone.clinic.service.RecordService;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/doctors")
 public class DoctorController {
-    private final UserService userService;
-    private final PetService petService;
-    private final RecordDao recordDao;
+    private final RecordService recordService;
 
 
     @GetMapping("/{id}/records")
-    public List<Record> getRecord(@PathVariable long id) {
-        return recordDao.getRecordByDoctor(id);
+    public List<RecordDTO> getRecord(@PathVariable long id) {
+        return recordService.getRecordsByDoctor(id);
     }
 }

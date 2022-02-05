@@ -13,7 +13,6 @@ import by.overone.clinic.service.UserService;
 import by.overone.clinic.util.Status;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

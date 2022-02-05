@@ -11,5 +11,5 @@ public interface RecordService {
 
     List<RecordDTO> getRecordsByPet(long id);
 
-    List<RecordDTO> getRecordByDoctor(long id);
+    List<RecordDTO> getRecordsByDoctor(long id);
 }
