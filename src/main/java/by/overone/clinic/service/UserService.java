@@ -18,7 +18,7 @@ public interface UserService {
 
     User addUser(UserRegistrationDTO user);
 
-    UserInfoDTO removeUserById(long id);
+    List<Object> removeUserById(long id);
 
     UserDetailsDTO updateUserDetails(UserDetailsDTO userDetail);
 

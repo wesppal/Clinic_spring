@@ -1,5 +1,6 @@
 package by.overone.clinic.service.impl;
 
+import by.overone.clinic.dao.PetDao;
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.dto.user.UserDTO;
 import by.overone.clinic.dto.user.UserDetailsDTO;
@@ -7,6 +8,7 @@ import by.overone.clinic.dto.user.UserInfoDTO;
 import by.overone.clinic.dto.user.UserRegistrationDTO;
 import by.overone.clinic.exception.EntityNotFoundException;
 import by.overone.clinic.exception.ExceptionCode;
+import by.overone.clinic.model.Pet;
 import by.overone.clinic.model.User;
 import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.service.UserService;
@@ -16,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +27,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
+    private final PetDao petDao;
     private final ModelMapper modelMapper;
 
     @Override
@@ -62,16 +66,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInfoDTO removeUserById(long id) {
+    public List<Object> removeUserById(long id) {
+        getUserById(id);
         UserInfoDTO user = userDao.getUserDetails(id)
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
         userDao.updateStatus(id, Status.DELETED);
-        return user;
+        List<Pet> pets = petDao.getPetByUserId(id);
+        List<Object> deleted = new ArrayList<>();
+        deleted.add(user);
+        if (pets.size() > 0) {
+            for (Pet pet:pets) {
+                petDao.updateStatus(pet.getPet_id(),Status.DELETED);
+                deleted.add(pet);
+            }
+        }
+        return deleted;
     }
 
     @Override
     public UserDetailsDTO updateUserDetails(UserDetailsDTO userDetail) {
-                userDao.updateUserDetails(modelMapper.map(userDetail, UserDetails.class));
+        userDao.updateUserDetails(modelMapper.map(userDetail, UserDetails.class));
         return userDetail;
     }
 
