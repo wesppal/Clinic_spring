@@ -49,10 +49,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public UserInfoDTO removeUser(@PathVariable long id) {
-        UserInfoDTO user = userService.removeUserById(id);
-        return user;
+    public List <Object> removeUser(@PathVariable long id) {
+        return userService.removeUserById(id);
     }
 
 
