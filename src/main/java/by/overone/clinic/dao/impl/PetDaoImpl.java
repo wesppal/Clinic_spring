@@ -32,7 +32,7 @@ public class PetDaoImpl implements PetDao {
     private final static String GET_ALL_PETS_SQL = "SELECT * FROM " + PetConst.TABLE_NAME +
             " WHERE " + PetConst.STATUS + " = '" + status + "'";
     private final static String GET_PET_BY_ID_SQL = "SELECT * FROM " + PetConst.TABLE_NAME +
-            " WHERE " + PetConst.ID + "=?";
+            " WHERE " + PetConst.ID + "=?" + " AND " + PetConst.STATUS + " = '" + status + "'";
     private final static String UPDATE_PET_STATUS_SQL = "UPDATE " + PetConst.TABLE_NAME + " SET " +
             PetConst.STATUS + " =(?) WHERE " + PetConst.ID + " = (?)";
     private final static String UPDATE_PET_SQL = "UPDATE " + PetConst.TABLE_NAME + " SET " +
