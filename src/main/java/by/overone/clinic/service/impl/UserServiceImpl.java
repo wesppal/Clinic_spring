@@ -75,8 +75,8 @@ public class UserServiceImpl implements UserService {
         List<Object> deleted = new ArrayList<>();
         deleted.add(user);
         if (pets.size() > 0) {
-            for (Pet pet:pets) {
-                petDao.updateStatus(pet.getPet_id(),Status.DELETED);
+            for (Pet pet : pets) {
+                petDao.updateStatus(pet.getPet_id(), Status.DELETED);
                 deleted.add(pet);
             }
         }

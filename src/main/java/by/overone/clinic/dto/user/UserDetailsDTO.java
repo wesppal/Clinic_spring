@@ -1,6 +1,7 @@
 package by.overone.clinic.dto.user;
 
 import lombok.Data;
+
 import javax.validation.constraints.Pattern;
 
 

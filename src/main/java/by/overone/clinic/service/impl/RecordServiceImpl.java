@@ -62,8 +62,8 @@ public class RecordServiceImpl implements RecordService {
         List<RecordDTO> recordsDTO = new ArrayList<>();
         modelMapper.map(recordDao.getRecordsByPet(id), RecordDTO.class);
         List<Record> records = recordDao.getRecordsByPet(id);
-        for (int i = 0; i < records.size(); i++){
-            recordsDTO.add(modelMapper.map(records.get(i),RecordDTO.class));
+        for (int i = 0; i < records.size(); i++) {
+            recordsDTO.add(modelMapper.map(records.get(i), RecordDTO.class));
         }
         return recordsDTO;
     }
@@ -77,8 +77,8 @@ public class RecordServiceImpl implements RecordService {
         }
         List<Record> records = recordDao.getRecordsByDoctor(id);
         List<RecordDTO> recordsDTO = new ArrayList<>();
-        for (int i = 0; i < records.size(); i++){
-            recordsDTO.add(modelMapper.map(records.get(i),RecordDTO.class));
+        for (int i = 0; i < records.size(); i++) {
+            recordsDTO.add(modelMapper.map(records.get(i), RecordDTO.class));
         }
         return recordsDTO;
     }

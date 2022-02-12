@@ -1,9 +1,7 @@
 package by.overone.clinic.controller;
 
-import by.overone.clinic.dao.RecordDao;
 import by.overone.clinic.dto.rec.RecordDTO;
 import by.overone.clinic.model.Pet;
-import by.overone.clinic.model.Record;
 import by.overone.clinic.service.PetService;
 import by.overone.clinic.service.RecordService;
 import lombok.AllArgsConstructor;
@@ -38,8 +36,8 @@ public class PetController {
 
     @PatchMapping("/{id}")
     public Pet updatePet(@PathVariable long id, @RequestBody Pet pet) {
-            pet.setPet_id(id);
-            return petService.updatePet(pet);
+        pet.setPet_id(id);
+        return petService.updatePet(pet);
     }
 
     @DeleteMapping("/{id}")
