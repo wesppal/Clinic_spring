@@ -61,11 +61,13 @@ public class PetServiceImpl implements PetService {
         if (pets.size() < 1) {
             throw new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PETS_BY_USER.getErrorCode());
         }
-            return petDao.getPetByUserId(user_id);
+        return petDao.getPetByUserId(user_id);
     }
 
     @Override
     public Pet verifyPet(long id) {
+        petDao.getPetById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
         petDao.updateStatus(id, Status.ACTIVE);
         return petDao.getPetById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_PET.getErrorCode()));
