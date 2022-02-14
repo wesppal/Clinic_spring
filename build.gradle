@@ -29,6 +29,7 @@ dependencies {
 
     implementation 'org.springframework.data:spring-data-jpa:2.6.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1'
+    implementation 'commons-codec:commons-codec:1.15'
 }
 
 test {
