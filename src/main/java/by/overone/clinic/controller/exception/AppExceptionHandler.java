@@ -2,8 +2,10 @@ package by.overone.clinic.controller.exception;
 
 import by.overone.clinic.exception.EntityNotFoundException;
 import by.overone.clinic.exception.FaultInDateException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +18,24 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @ControllerAdvice
+@RequiredArgsConstructor
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private final MessageSource messageSource;
 
     @Override
     protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers,
                                                         HttpStatus status, WebRequest request) {
+        String message = messageSource.getMessage("00001", null, request.getLocale());
         ExceptionResponse response = new ExceptionResponse();
         response.setException(ex.getClass().getSimpleName());
-        response.setMessage("The String in path, there must be a number greater than or equal to 1");
+        response.setMessage(message);
         return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
     }
 
@@ -36,9 +43,12 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
                                                                          HttpHeaders headers, HttpStatus status,
                                                                          WebRequest request) {
+        String errorCode = "00002";
+        String message = messageSource.getMessage(errorCode, null, request.getLocale());
         ExceptionResponse response = new ExceptionResponse();
         response.setException(ex.getClass().getSimpleName());
-        response.setMessage("Not allowed.");
+        response.setErrorCode(errorCode);
+        response.setMessage(message);
         return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
@@ -60,9 +70,12 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpHeaders headers, HttpStatus status,
                                                                   WebRequest request) {
         log.info(ex.getMessage());
+        String errorCode = "00003";
+        String message = messageSource.getMessage(errorCode, null, request.getLocale());
         ExceptionResponse response = new ExceptionResponse();
         response.setException(ex.getClass().getSimpleName());
-        response.setMessage("???");
+        response.setMessage(message);
+        response.setErrorCode(errorCode);
         return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
@@ -103,7 +116,17 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         ExceptionResponse response = new ExceptionResponse();
         response.setException(e.getClass().getSimpleName());
         response.setErrorCode("51");
-        response.setMessage("BD exception");
+        response.setMessage("BD exception. " + e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<ExceptionResponse> sqlDuplicateHandler(SQLIntegrityConstraintViolationException e) {
+        log.error("SQL duplicate exception: ", e);
+        ExceptionResponse response = new ExceptionResponse();
+        response.setException(e.getClass().getSimpleName());
+        response.setErrorCode("51");
+        response.setMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
     }
 

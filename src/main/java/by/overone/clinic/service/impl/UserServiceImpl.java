@@ -14,6 +14,7 @@ import by.overone.clinic.model.UserDetails;
 import by.overone.clinic.service.UserService;
 import by.overone.clinic.util.Status;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
     public User addUser(UserRegistrationDTO userDTO) {
         User user = new User();
         user.setLogin(userDTO.getLogin());
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(DigestUtils.md5Hex(userDTO.getPassword()));
         user.setEmail(userDTO.getEmail());
         user = userDao.addUser(user);
         userDao.addUserDetails(user.getId());
