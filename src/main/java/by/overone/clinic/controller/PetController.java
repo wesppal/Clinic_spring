@@ -6,8 +6,10 @@ import by.overone.clinic.service.PetService;
 import by.overone.clinic.service.RecordService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -24,7 +26,7 @@ public class PetController {
     }
 
     @GetMapping("/{id}")
-    public Pet readPet(@PathVariable long id) {
+    public Pet readPet(@Validated @Min(1) @PathVariable long id) {
         return petService.getPetById(id);
     }
 
@@ -35,23 +37,23 @@ public class PetController {
     }
 
     @PatchMapping("/{id}")
-    public Pet updatePet(@PathVariable long id, @RequestBody Pet pet) {
+    public Pet updatePet(@Validated @Min(1) @PathVariable long id, @RequestBody Pet pet) {
         pet.setPet_id(id);
         return petService.updatePet(pet);
     }
 
     @DeleteMapping("/{id}")
-    public Pet removePet(@PathVariable long id) {
+    public Pet removePet(@Validated @Min(1) @PathVariable long id) {
         return petService.removePetById(id);
     }
 
     @GetMapping("/{id}/verify")
-    public Pet verifyPet(@PathVariable long id) {
+    public Pet verifyPet(@Validated @Min(1) @PathVariable long id) {
         return petService.verifyPet(id);
     }
 
     @GetMapping("/{id}/records")
-    public List<RecordDTO> getRecords(@PathVariable long id) {
+    public List<RecordDTO> getRecords(@Validated @Min(1) @PathVariable long id) {
         return recordService.getRecordsByPet(id);
     }
 }

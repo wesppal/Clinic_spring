@@ -1,9 +1,13 @@
 package by.overone.clinic.exception;
 
 public class FaultInDateException extends RuntimeException {
-    private int errorCode;
+    private String errorCode;
 
     public FaultInDateException(String errorCode) {
-        super(errorCode);
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
     }
 }

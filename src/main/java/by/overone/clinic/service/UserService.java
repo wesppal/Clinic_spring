@@ -20,7 +20,7 @@ public interface UserService {
 
     List<Object> removeUserById(long id);
 
-    UserDetailsDTO updateUserDetails(UserDetailsDTO userDetail);
+    UserDetailsDTO updateUserDetails(UserDetailsDTO userDetail, long id);
 
     UserInfoDTO getUserDetails(long id);
 

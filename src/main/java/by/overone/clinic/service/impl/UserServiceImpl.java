@@ -85,9 +85,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetailsDTO updateUserDetails(UserDetailsDTO userDetail) {
-        userDao.updateUserDetails(modelMapper.map(userDetail, UserDetails.class));
-        return userDetail;
+    public UserDetailsDTO updateUserDetails(UserDetailsDTO user, long id) {
+        userDao.getUserById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
+        UserDetails userDetails = modelMapper.map(user, UserDetails.class);
+        userDetails.setUser_id(id);
+        userDao.updateUserDetails(userDetails);
+        return user;
     }
 
     @Override

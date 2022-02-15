@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDTO readUser(@PathVariable long id) {
+    public UserDTO readUser(@Validated @Min(1) @PathVariable long id) {
         return userService.getUserById(id);
     }
 
@@ -46,15 +47,15 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public List <Object> removeUser(@PathVariable long id) {
+    public List <Object> removeUser(@Validated @Min(1) @PathVariable long id) {
         return userService.removeUserById(id);
     }
 
 
     @PatchMapping("/{id}/info")
-    public UserDetailsDTO updateDetailUser(@PathVariable long id, @Validated @RequestBody UserDetailsDTO userDetails) {
-            UserDetailsDTO user = userService.updateUserDetails(userDetails);
-            return user;
+    public UserDetailsDTO updateDetailUser(@Validated @Min(1) @PathVariable long id,
+                                           @Validated @RequestBody UserDetailsDTO userDetails) {
+            return userService.updateUserDetails(userDetails, id);
     }
 
     @GetMapping("/{id}/info")
@@ -63,12 +64,12 @@ public class UserController {
     }
 
     @GetMapping("/{user_id}/pets")
-    public List<Pet> readPetsForUser(@PathVariable long user_id) {
+    public List<Pet> readPetsForUser(@Validated @Min(1) @PathVariable long user_id) {
         return petService.getPetByUserId(user_id);
     }
 
     @GetMapping("/{id}/verify")
-    public UserInfoDTO verifyUser(@PathVariable long id) {
+    public UserInfoDTO verifyUser(@Validated @Min(1) @PathVariable long id) {
         return userService.verifyUser(id);
     }
 }

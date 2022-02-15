@@ -29,7 +29,9 @@ public class RecordController {
         }
         List<RecordDTO> records = recordService.getAllRecords();
 
-        RecordDTO rec = records.stream().filter(r -> r.getAdmission_date().compareTo(record.getAdmission_date()) == 0).findAny()
+        RecordDTO rec = records.stream().filter(r -> r.getAdmission_date()
+                        .compareTo(record.getAdmission_date()) == 0)
+                .findAny()
                 .orElse(null);
 
         if (rec != null) {

@@ -36,13 +36,13 @@ public class PetDaoImpl implements PetDao {
     private final static String UPDATE_PET_STATUS_SQL = "UPDATE " + PetConst.TABLE_NAME + " SET " +
             PetConst.STATUS + " =(?) WHERE " + PetConst.ID + " = (?)";
     private final static String UPDATE_PET_SQL = "UPDATE " + PetConst.TABLE_NAME + " SET " +
-            PetConst.NAME + "=COALESCE(?," + PetConst.NAME + "), " +
-            PetConst.AGE + "=COALESCE(?," + PetConst.AGE + "), " +
-            PetConst.TYPE + "=COALESCE(?," + PetConst.TYPE + "), " +
-            PetConst.STATUS + "=COALESCE(?," + PetConst.STATUS + ") " +
-            "WHERE " + PetConst.ID + " = ?";
+            PetConst.NAME + " = COALESCE(?," + PetConst.NAME + "), " +
+            PetConst.AGE + " = COALESCE(?," + PetConst.AGE + "), " +
+            PetConst.TYPE + " = COALESCE(?," + PetConst.TYPE + "), " +
+            PetConst.STATUS + " = COALESCE(?," + PetConst.STATUS + ") " +
+            " WHERE " + PetConst.ID + " = ? ";
     private final static String GET_PETS_BY_USER_ID_SQL = "SELECT * FROM " + PetConst.TABLE_NAME +
-            " WHERE " + PetConst.USER_ID + " = ?";
+            " WHERE " + PetConst.STATUS + " = '" + status + "' and " + PetConst.USER_ID + " = ?";
 
     @Override
     public List<Pet> getPets() {

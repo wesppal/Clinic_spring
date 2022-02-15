@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -32,7 +33,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers,
                                                         HttpStatus status, WebRequest request) {
-        String message = messageSource.getMessage("00001", null, request.getLocale());
+        String message = messageSource.getMessage("001", null, request.getLocale());
         ExceptionResponse response = new ExceptionResponse();
         response.setException(ex.getClass().getSimpleName());
         response.setMessage(message);
@@ -43,7 +44,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
                                                                          HttpHeaders headers, HttpStatus status,
                                                                          WebRequest request) {
-        String errorCode = "00002";
+        String errorCode = "002";
         String message = messageSource.getMessage(errorCode, null, request.getLocale());
         ExceptionResponse response = new ExceptionResponse();
         response.setException(ex.getClass().getSimpleName());
@@ -70,7 +71,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpHeaders headers, HttpStatus status,
                                                                   WebRequest request) {
         log.info(ex.getMessage());
-        String errorCode = "00003";
+        String errorCode = "003";
         String message = messageSource.getMessage(errorCode, null, request.getLocale());
         ExceptionResponse response = new ExceptionResponse();
         response.setException(ex.getClass().getSimpleName());
@@ -80,43 +81,23 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> entityNotFoundHandler(EntityNotFoundException e) {
+    public ResponseEntity<ExceptionResponse> entityNotFoundHandler(EntityNotFoundException e, WebRequest request) {
         log.error("Not found exception: ", e);
         ExceptionResponse response = new ExceptionResponse();
         response.setException(e.getClass().getSimpleName());
         response.setErrorCode(e.getMessage());
-        String message = "";
-        switch (e.getMessage()) {
-            case "31":
-                message = "User ID error.";
-                break;
-            case "40":
-                message = "User not found.";
-                break;
-            case "41":
-                message = "Doctor not found";
-                break;
-            case "42":
-                message = "Pet not found.";
-                break;
-            case "43":
-                message = "This user don't have pets.";
-                break;
-            case "44":
-                message = "User was not found for your request.";
-                break;
-        }
+        String message = messageSource.getMessage(e.getMessage(), null, request.getLocale());
         response.setMessage(message);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(SQLException.class)
-    public ResponseEntity<ExceptionResponse> sqlExceptionHandler(SQLException e) {
+    public ResponseEntity<ExceptionResponse> sqlExceptionHandler(SQLException e, WebRequest request) {
         log.error("SQL exception: ", e);
         ExceptionResponse response = new ExceptionResponse();
         response.setException(e.getClass().getSimpleName());
-        response.setErrorCode("51");
-        response.setMessage("BD exception. " + e.getMessage());
+        String message = messageSource.getMessage(e.getMessage(), null, request.getLocale());
+        response.setMessage(message);
         return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
     }
 
@@ -125,31 +106,27 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("SQL duplicate exception: ", e);
         ExceptionResponse response = new ExceptionResponse();
         response.setException(e.getClass().getSimpleName());
-        response.setErrorCode("51");
         response.setMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
     }
 
     @ExceptionHandler(FaultInDateException.class)
-    public ResponseEntity<ExceptionResponse> dateFaultHandler(FaultInDateException e) {
-        log.error("Not found exception: ", e);
+    public ResponseEntity<ExceptionResponse> dateFaultHandler(FaultInDateException ex, WebRequest request) {
+        log.error("Not found exception: ", ex);
         ExceptionResponse response = new ExceptionResponse();
-        response.setException(e.getClass().getSimpleName());
-        response.setErrorCode(e.getMessage());
-        String message = "";
-        switch (e.getMessage()) {
-            case "3001":
-                message = "Hours in admission_date must be more than or equal 8 and less than 17.";
-                break;
-            case "3002":
-                message = "Minutes in admission_date must be equal to 0 or 30.";
-                break;
-            case "3003":
-                message = "This time is already being used.";
-                break;
-
-        }
+        response.setException(ex.getClass().getSimpleName());
+        String message = messageSource.getMessage(ex.getErrorCode(), null, request.getLocale());
         response.setMessage(message);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ExceptionResponse> id(ConstraintViolationException ex, WebRequest request) {
+        log.error("Id error: ", ex);
+        ExceptionResponse response = new ExceptionResponse();
+        response.setException(ex.getClass().getSimpleName());
+        String message = messageSource.getMessage(ex.getMessage(), null, request.getLocale());
+        response.setMessage(message);
+        return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
     }
 }
