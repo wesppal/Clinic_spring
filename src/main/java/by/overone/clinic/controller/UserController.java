@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public List <Object> removeUser(@Validated @Min(1) @PathVariable long id) {
+    public List<Object> removeUser(@Validated @Min(1) @PathVariable long id) {
         return userService.removeUserById(id);
     }
 
@@ -55,7 +54,7 @@ public class UserController {
     @PatchMapping("/{id}/info")
     public UserDetailsDTO updateDetailUser(@Validated @Min(1) @PathVariable long id,
                                            @Validated @RequestBody UserDetailsDTO userDetails) {
-            return userService.updateUserDetails(userDetails, id);
+        return userService.updateUserDetails(userDetails, id);
     }
 
     @GetMapping("/{id}/info")

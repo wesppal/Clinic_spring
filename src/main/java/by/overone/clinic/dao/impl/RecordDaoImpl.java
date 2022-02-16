@@ -5,7 +5,6 @@ import by.overone.clinic.dao.RecordDao;
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.model.Record;
 import by.overone.clinic.util.RecordStatus;
-import by.overone.clinic.util.Status;
 import by.overone.clinic.util.constants.RecordConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
