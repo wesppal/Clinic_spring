@@ -34,6 +34,8 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet addPet(Pet pet) {
+        userDao.getUserById(pet.getUser_id())
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionCode.NOT_EXISTING_USER.getErrorCode()));
         return petDao.addPet(pet);
     }
 
