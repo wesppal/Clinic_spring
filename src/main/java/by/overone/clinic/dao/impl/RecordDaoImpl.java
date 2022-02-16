@@ -4,6 +4,9 @@ import by.overone.clinic.dao.PetDao;
 import by.overone.clinic.dao.RecordDao;
 import by.overone.clinic.dao.UserDao;
 import by.overone.clinic.model.Record;
+import by.overone.clinic.util.RecordStatus;
+import by.overone.clinic.util.Status;
+import by.overone.clinic.util.constants.RecordConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,10 +28,14 @@ public class RecordDaoImpl implements RecordDao {
     private SimpleJdbcInsert simpleJdbcInsert;
     private final UserDao userDao;
     private final PetDao petDao;
+    private static String status = RecordStatus.RECORDED.toString();
 
-    private final static String GET_RECORDS_BY_PET_ID_SQL = "SELECT * from medical_card WHERE pet_id=?";
-    private final static String GET_RECORDS_BY_DOCTOR_ID_SQL = "SELECT * from medical_card WHERE doctor_id=?";
-    private final static String GET_ALL_RECORDS_SQL = "SELECT * from medical_card";
+    private final static String GET_RECORDS_BY_PET_ID_SQL = "SELECT * FROM " + RecordConst.TABLE_NAME + " WHERE " +
+            RecordConst.PET_ID + "=?";
+    private final static String GET_RECORDS_BY_DOCTOR_ID_SQL = "SELECT * FROM " + RecordConst.TABLE_NAME + " WHERE " +
+            RecordConst.DOCTOR_ID + "=?";
+    private final static String GET_ALL_RECORDS_SQL = "SELECT * FROM " + RecordConst.TABLE_NAME + " WHERE " +
+            RecordConst.STATUS + "='" + status + "'";
 
     @Override
     public List<Record> getAllRecords() {
