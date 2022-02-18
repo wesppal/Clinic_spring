@@ -1,4 +1,4 @@
-# **REST-api. Vet Clinic.**
+# **REST API. Vet Clinic.**
 
 
 ## Spring, Gradle, servlets, jsp, jdbc, MySQL DB.
