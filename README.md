@@ -58,15 +58,16 @@ The application implements a database. Which stores registered users with additi
 
 1. API Description for User
 
-METHOD	PATH	DESCRIPTION
-POST	/api/users/	add new user
-DELETE	/api/users/{id}	delete user by id
-PATCH	/api/users/{id}	update user details by id
-GET	/api/users/{id}	get user by id
-GET	/api/users/params	get user by params(name, surname), it works according to one of the parameters, or both at once, if query without params - get all users
-GET	/api/users/{id}/pets	get pets by user by id
-GET	/api/users/{id}/info	get user details by id
-GET	/api/users/{id}/verify	user verification by id
+| METHOD	| PATH	| DESCRIPTION |
+|:----|:----|:----------|
+| POST | /api/users/	| add new user |
+| DELETE | /api/users/{id}	| delete user by id |
+| PATCH | 	/api/users/{id}	| update user details by id |
+| GET | /api/users/{id}	| get user by id |
+| GET | /api/users/params	| get user by params(name, surname), it works according to one of the parameters, or both at once, if query without params - get all users |
+| GET | /api/users/{id}/pets	| get pets by user by id |
+| GET | /api/users/{id}/info	| get user details by id |
+| GET | /api/users/{id}/verify	| user verification by id |
 
 2. API Description for Details
 
