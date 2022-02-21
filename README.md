@@ -60,27 +60,50 @@ The application implements a database. Which stores registered users with additi
 
 | METHOD	| PATH	| DESCRIPTION |
 |:----|:----|:----------|
-| POST | /api/users/	| add new user |
+| POST | /api/users	| add new user |
 | DELETE | /api/users/{id}	| delete user by id |
 | PATCH | 	/api/users/{id}	| update user details by id |
 | GET | /api/users/{id}	| get user by id |
 | GET | /api/users/params	| get user by params(name, surname), it works according to one of the parameters, or both at once, if query without params - get all users |
 | GET | /api/users/{id}/pets	| get pets by user by id |
 | GET | /api/users/{id}/info	| get user details by id |
-| GET | /api/users/{id}/verify	| user verification by id |
+| GET | /api/users/{id}/verify | user verification by id |
 
 2. API Description for Details
 
-METHOD	PATH	DESCRIPTION
-POST	/api/pets/{id}	add pet
-PATCH	/api/pets/{id}	update pet by id
-DELETE	/api/pets/{id}	delete pet by id
-GET	/api/pets	get all pets
-GET	/api/pets/{id}	get pet by id
-GET	/api/pets/{id}/records	get records by pet id
-GET	/api/pets/{id}/verify	pet verification by id
+| METHOD	| PATH	| DESCRIPTION |
+|:----|:----|:----------|
+| POST | /api/pets | add pet |
+| PATCH | /api/pets/{id} | update pet by id |
+| DELETE | /api/pets/{id} | delete pet by id |
+| GET | /api/pets | get all pets |
+| GET | /api/pets/{id} | get pet by id |
+| GET | /api/pets/{id}/records | get records by pet id |
+| GET | /api/pets/{id}/verify | pet verification by id |
 
-Prerequisites:
+3. API Description for Records
+
+| METHOD	| PATH	| DESCRIPTION |
+|:----|:----|:----------|
+| POST | /api/records | add record |
+| GET | /api/pets/records | get all records |
+
+4. API Description for Doctors
+
+| METHOD	| PATH	| DESCRIPTION |
+|:----|:----|:----------|
+| GET | /api/doctors/{id}/records | get all records by doctor id |
+
+## Project requests are grouped as follows in Postman:
+
+![Снимок экрана 2022-02-21 155617](https://user-images.githubusercontent.com/93032950/154959475-6381777b-5abc-49f7-8648-65bf9fdda22b.png)
+
+## Click button to try
+https://www.getpostman.com/collections/5e1801dabe2d1b414363
+
+### Prerequisites:
 Tomcat
 Java 11
 MySQl
+
+
