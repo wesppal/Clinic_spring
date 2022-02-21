@@ -11,12 +11,12 @@
 The application implements a database. Which stores registered users with additional information about them. As well as the pets of these users. Doctors and pet reception records.
 
 ## Data model
-
+### ER diagram for the data model
 ![Снимок экрана 2022-02-21 150113](https://user-images.githubusercontent.com/93032950/154951502-61dd83c4-132c-44c6-8e6e-9e1d7a1aee2f.png)
 
-## Tables
+### Tables
 
-### User 
+#### User 
 + Contains the information about all the users (users, doctors, admins)
   + Id
   + Login
@@ -25,7 +25,7 @@ The application implements a database. Which stores registered users with additi
   + Role
   + Status
 
-### User details
+#### User details
 + Contains the users personal information
   + User id
   + Name
@@ -34,7 +34,7 @@ The application implements a database. Which stores registered users with additi
   + Phone number
 
 
-### Pet
+#### Pet
 + Contains the client's personal information
   + Pet id
   + Name
@@ -44,7 +44,7 @@ The application implements a database. Which stores registered users with additi
   + Status
 
 
-### Medical_card
+#### Medical_card
 + Contains appointments made by clients
   + Record id
   + Record date
