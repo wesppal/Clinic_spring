@@ -67,7 +67,7 @@ public class UserController {
         return petService.getPetByUserId(user_id);
     }
 
-    @GetMapping("/{id}/verify")
+    @PatchMapping("/{id}/verify")
     public UserInfoDTO verifyUser(@Validated @Min(1) @PathVariable long id) {
         return userService.verifyUser(id);
     }

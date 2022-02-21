@@ -47,7 +47,7 @@ public class PetController {
         return petService.removePetById(id);
     }
 
-    @GetMapping("/{id}/verify")
+    @PatchMapping("/{id}/verify")
     public Pet verifyPet(@Validated @Min(1) @PathVariable long id) {
         return petService.verifyPet(id);
     }

@@ -1,8 +1,6 @@
 package by.overone.clinic.controller;
 
-import by.overone.clinic.dao.RecordDao;
 import by.overone.clinic.dto.rec.RecordDTO;
-import by.overone.clinic.model.Record;
 import by.overone.clinic.service.RecordService;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
