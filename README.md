@@ -99,7 +99,19 @@ The application implements a database. Which stores registered users with additi
 ![Снимок экрана 2022-02-21 155617](https://user-images.githubusercontent.com/93032950/154959475-6381777b-5abc-49f7-8648-65bf9fdda22b.png)
 
 ## Click button to try
-https://www.getpostman.com/collections/5e1801dabe2d1b414363
+<div class="postman-run-button"
+data-postman-action="collection/fork"
+data-postman-var-1="18900246-6e7d9081-2d01-4a7d-ac69-c86e6f9a2fd4"
+data-postman-collection-url="entityId=18900246-6e7d9081-2d01-4a7d-ac69-c86e6f9a2fd4&entityType=collection&workspaceId=29a1b792-b6be-4d8e-b462-87cfcadcbc45"></div>
+<script type="text/javascript">
+  (function (p,o,s,t,m,a,n) {
+    !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+    !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+      (n = o.createElement("script")),
+      (n.id = s+t), (n.async = 1), (n.src = m), n
+    ));
+  }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+</script>
 
 ### Prerequisites:
 Tomcat
