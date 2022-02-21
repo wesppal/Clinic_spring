@@ -1,0 +1,27 @@
+CREATE TABLE `clinicdb`.`pets` ();
+
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (3,'goldy',1,'fish',3,'ACTIVE');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (4,'vasya',2,'cat',4,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (5,'Reks',1,'dog',17,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (6,'Reks',3,'dog',17,'ACTIVE');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (7,'goldy',1,'fish',3,'ACTIVE');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (8,'prank',1,'cat',3,'ACTIVE');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (9,'matilda',1,'cat',35,'VERIFY');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (10,'vaska',2,'Cat',35,'VERIFY');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (11,'motya',1,'cat',35,'VERIFY');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (12,'matilda-ver4',1,'cat',35,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (13,'vaska',2,'Cat',3,'ACTIVE');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (14,'vaska',2,'Cat',3,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (15,'matilda_ver2.0',12,'Cat',3,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (16,'Otis',2,'Cat',50,'ACTIVE');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (17,'matilda3',2,'Dog',50,'ACTIVE');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (18,'matilda',2,'Dog',70,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (19,'Sack',2,'Dog',70,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (20,'Cotis',2,'Cat',70,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (21,'Otis',2,'Cat',1,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (22,'Sack',2,'Dog',1,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (23,'Cryack',2,'Dog',1,'ACTIVE');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (24,'Cryack',2,'Dog',1,'DELETED');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (25,'Cotis',2,'Cat',1,'ACTIVE');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (26,'Cryack',2,'Dog',3,'VERIFY');
+INSERT INTO `clinicdb.pets` (`pet_id`,`name`,`age`,`type_of_pet`,`user_id`,`status`) VALUES (27,'bob',2,'Dog',114,'ACTIVE');

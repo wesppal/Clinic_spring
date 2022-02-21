@@ -1,0 +1,56 @@
+
+CREATE TABLE `clinicdb`.`user` ();
+CREATE TABLE `clinicdb`.`user_details` ();
+
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (3,'minsk, ulica 2-20','Gon','+375291231212','Friks');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (4,'Minsk, ulica 12-4','Pol','+375753332211','Uoker');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (5,'Minsk, ulica 12-4','Polyna','+375753332212','Uokera');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (6,'Minsk, ulica 12-5','Polyna','+375753332214','Viera');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (7,'Leningrad, people street 12-3','Kevin','+375293212224','Durant');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (8,'Leningrad, people street 12-3','Kevin','+375293212223','Durant');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (9,'Minsk, ulica 12-51','Vasya','+375293212225','Popkin');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (10,'Minsk, ulica 18-55','Vasha','+375293212226','Sashkins');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (11,'Minsk, ulica 18-55','Kasha','+375293212226','Pashkins');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (12,'Minsk, ulica 18-55','Vasha','+375293212226','Sashkins');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (13,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (14,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (15,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (16,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (17,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (18,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (19,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (20,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (21,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (22,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (23,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (24,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (25,'Minsk, ulica 18-55','Vasha','+375293212226','Sashkins');
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (26,NULL,NULL,NULL,NULL);
+INSERT INTO `clinicdb.user_details`  (`id`,`address`,`name`,`phoneNumber`,`surname`) VALUES (27,'Minsk, ulica 18-55','Vasha','+375293212226','Sashkins');
+
+
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (1,'Test@mail.ru','TestUser','tested','USER','ACTIVE',3);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (2,'Test2@mail.ru','TestUser2','tested','DOCTOR','ACTIVE',4);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (3,'Test4@mail.ru','TestUser4','tested4','USER','ACTIVE',5);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (4,'Test5@mail.ru','TestUser5','tested4','USER','ACTIVE',6);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (5,'Test7@mail.ru','TestUser7','d941191e51e81390343e12b159bb123f','USER','DELETED',7);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (6,'Test8@mail.ru','TestUser8','46d3f9bbf4d6ce768884be403a260a47','USER','VERIFY',8);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (7,'peven@mail.ru','peven','a9c513ab043b6214a783b57e94708437','USER','VERIFY',9);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (8,'Popkin@mail.ru','vasya','Vasya007','USER','DELETED',10);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (9,'Popkin2@mail.ru','vasya134','Vasya00711','USER','ACTIVE',11);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (10,'Popkin3@mail.ru','vasya1345','Vasya00712','USER','DELETED',12);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (11,'v@mail.ru','kol9','avto','USER','ACTIVE',13);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (12,'vas@mail.ru','nick','avto3','USER','ACTIVE',14);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (13,'vas2@mail.ru','dasha1','avto3','USER','VERIFY',15);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (14,'vas4@mail.ru','dasa3','avto4','USER','VERIFY',16);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (15,'vas5@mail.ru','dasavto','avto4','USER','VERIFY',17);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (16,'vas6@mail.ru','toyota','avto4','USER','VERIFY',18);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (17,'vas7@mail.ru','kent007','avto4','USER','VERIFY',19);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (18,'vas8@mail.ru','sas9','avto4','USER','VERIFY',20);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (19,'vas9@mail.ru','sass','avto4','USER','VERIFY',21);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (20,'vas10@mail.ru','moker','avto4','USER','VERIFY',22);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (21,'vasz@mail.ru','milot','avto4','USER','VERIFY',23);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (22,'vasn2345@mail.ru','pilot','avto45','USER','DELETED',24);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (23,'vasn23456@mail.ru','vasgen','avto45','USER','DELETED',25);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (24,'vasn234567@mail.ru','gasneft','avto45','USER','DELETED',26);
+INSERT INTO clinicdb.user (`id`,`email`,`login`,`password`,`role`,`status`,`detail_id`) VALUES (25,'vasn238@mail.ru','promt','avto45','USER','DELETED',27);
