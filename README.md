@@ -1,8 +1,15 @@
-# **REST API. Subject: Veterinary Clinic**
+# **RESTful Web-API. Subject: Veterinary Clinic**
 
 
-## **Spring, Gradle, servlets, jsp, jdbc, MySQL DB.**
+## Using the following technologies:
+-Gradle
+-JDBC
+-MySQL DB
+-Spring Framework
 
-### ***The code is in the test branch***
-
+### Description of the project:
 The application implements a database. Which stores registered users with additional information about them. As well as the pets of these users. Doctors and pet reception records.
+
+## Data model
+
+![Снимок экрана 2022-02-21 150113](https://user-images.githubusercontent.com/93032950/154951502-61dd83c4-132c-44c6-8e6e-9e1d7a1aee2f.png)
