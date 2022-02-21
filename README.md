@@ -2,10 +2,10 @@
 
 
 ## Using the following technologies:
--Gradle
--JDBC
--MySQL DB
--Spring Framework
+- Gradle
+- JDBC
+- MySQL DB
+- Spring Framework
 
 ### Description of the project:
 The application implements a database. Which stores registered users with additional information about them. As well as the pets of these users. Doctors and pet reception records.
